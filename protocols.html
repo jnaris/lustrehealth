@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Protocols | Lustre Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #faf6f0;
+      --cream-2: #f5ede2;
+      --cream-3: #ede0d0;
+      --blush: #e8c8c0;
+      --blush-2: #d4a8a0;
+      --rose: #c27870;
+      --rose-deep: #9e5a54;
+      --sand: #c8b09a;
+      --sand-light: #e8d8c8;
+      --bark: #3a2820;
+      --bark-mid: #6a4838;
+      --text: #2a1810;
+      --text-mid: #5a3828;
+      --text-muted: #9a7060;
+      --gold: #c8a870;
+      --gold-light: #e8d0a8;
+      --white: #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--cream); color: var(--text); }
+    body { font-family: 'DM Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+    ::selection { background: var(--blush); color: var(--bark); }
+    a { color: inherit; }
+    button { font: inherit; }
+    @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes benefits-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      background: var(--bark);
+      color: rgba(250,246,240,0.7);
+      font-family: 'DM Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      overflow: hidden;
+      padding: 11px 0;
+      white-space: nowrap;
+      position: relative;
+    }
+    .marquee-wrap::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 100% at 30% 50%, rgba(232,200,192,0.12), transparent);
+      pointer-events: none;
+    }
+    .marquee-track { display: inline-block; animation: marquee 40s linear infinite; }
+    .marquee-track span { padding: 0 14px; }
+    .marquee-track .sep { opacity: 0.35; padding: 0 4px; color: var(--gold); }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,246,240,0.88);
+      backdrop-filter: blur(18px) saturate(160%);
+      border-bottom: 1px solid transparent;
+      transition: border-color 280ms ease;
+    }
+    .nav.is-solid { border-bottom-color: rgba(58,40,32,0.10); }
+    .nav-inner {
+      max-width: 1320px; margin: 0 auto; padding: 0 36px;
+      height: 70px; display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center; gap: 32px;
+    }
+    .nav-logo { text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
+    .lustre-wm {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      color: var(--bark);
+      line-height: 1;
+    }
+    .lustre-wm sup {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      font-family: 'DM Mono', monospace;
+      color: var(--rose);
+      vertical-align: super;
+      font-style: normal;
+      font-weight: 400;
+    }
+    .nav-links { display: flex; align-items: center; gap: 4px; justify-content: center; }
+    .nav-link {
+      font-size: 13px; font-weight: 400; color: var(--text); text-decoration: none;
+      letter-spacing: 0.01em; opacity: 0.7; padding: 8px 14px; border-radius: 999px;
+      transition: opacity 180ms ease, background 180ms ease;
+    }
+    .nav-link:hover { opacity: 1; background: rgba(200,176,154,0.15); }
+    .nav-actions { display: flex; align-items: center; gap: 14px; justify-content: flex-end; }
+    .nav-signin { font-size: 13px; color: var(--text-mid); text-decoration: none; opacity: 0.7; letter-spacing: 0.01em; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: 999px;
+      font-size: 13px; font-weight: 500;
+      text-decoration: none;
+      background: var(--bark);
+      color: var(--cream);
+      border: 1px solid var(--bark);
+      letter-spacing: 0.02em;
+      transition: background 180ms ease;
+    }
+    .nav-cta:hover { background: var(--bark-mid); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      padding-top: 40px; padding-bottom: 80px;
+      overflow: hidden;
+      background: var(--cream);
+    }
+    /* Hero photo */
+    .hero-photo-wrap {
+      position: absolute;
+      right: 0; top: 0;
+      width: min(62%, 900px); height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-photo {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+    .hero-photo-placeholder {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(160deg, var(--cream-3) 0%, var(--blush) 50%, var(--cream-2) 100%);
+      border-left: 1px dashed rgba(194,120,112,0.3);
+    }
+    .hero-photo-placeholder-label {
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--rose-deep); opacity: 0.55;
+    }
+    /* Left-to-right fade: text side bleeds into photo */
+    .hero-photo-fade {
+      position: absolute;
+      right: min(62%, 900px); top: 0; bottom: 0;
+      width: 340px;
+      background: linear-gradient(90deg, var(--cream) 0%, transparent 100%);
+      pointer-events: none;
+      transform: translateX(100%);
+    }
+    /* When photo loads, hide placeholder */
+    .hero-photo[src]:not([src=""]) ~ .hero-photo-placeholder { display: none; }
+    .hero-fade {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 200px;
+      background: linear-gradient(180deg, transparent, var(--cream) 85%);
+      pointer-events: none;
+    }
+    @media (max-width: 960px) {
+      .hero-photo-wrap { width: 100%; opacity: 0.18; }
+      .hero-photo-fade { display: none; }
+    }
+    .hero-inner {
+      position: relative;
+      max-width: 1320px; margin: 0 auto; padding: 0 36px;
+    }
+    .hero-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 14px 5px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.65);
+      border: 0.5px solid rgba(194,120,112,0.25);
+      backdrop-filter: blur(12px);
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+      color: var(--rose-deep); text-transform: uppercase;
+      margin-bottom: 36px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-chip-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--rose);
+      box-shadow: 0 0 0 3px rgba(194,120,112,0.2);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(52px, 6.8vw, 108px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--bark);
+      margin: 0;
+      max-width: 600px;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+    .hero h1 em { font-style: italic; color: var(--rose-deep); }
+    .hero-content {
+      margin-top: 40px;
+      display: flex; flex-direction: column; gap: 28px;
+      max-width: 560px;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+    .hero-sub {
+      font-size: 17px; line-height: 1.6; color: var(--text-mid);
+      margin: 0; font-weight: 300;
+    }
+    /* Benefits scroll */
+    .benefits { display: flex; flex-direction: column; gap: 12px; }
+    .benefits-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted); display: flex; align-items: center; gap: 8px;
+    }
+    .benefits-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--rose); box-shadow: 0 0 0 3px rgba(194,120,112,0.2);
+      animation: blink 2.5s ease-in-out infinite;
+    }
+    .benefits-viewport {
+      height: 72px; width: 100%; overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+    }
+    .benefits-track {
+      display: flex; align-items: center; gap: 16px;
+      width: max-content; height: 100%;
+      animation: benefits-scroll 32s linear infinite;
+    }
+    .benefits-track:hover { animation-play-state: paused; }
+    .benefits-pill {
+      display: inline-block; padding: 6px 20px; border-radius: 999px;
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-weight: 400; font-size: clamp(30px, 3.8vw, 50px);
+      line-height: 1.1; letter-spacing: -0.025em;
+      white-space: nowrap; color: var(--bark); flex: 0 0 auto;
+      border: 0.5px solid rgba(194,120,112,0.2);
+    }
+    /* CTA buttons */
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 24px; border-radius: 999px;
+      font-size: 13.5px; font-weight: 500; letter-spacing: 0.02em;
+      text-decoration: none;
+      background: var(--bark);
+      color: var(--cream);
+      border: 1px solid var(--bark);
+      box-shadow: 0 4px 20px rgba(58,40,32,0.18);
+      transition: transform 200ms ease, background 200ms ease;
+    }
+    .btn-primary:hover { transform: translateY(-1px); background: var(--bark-mid); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 24px; border-radius: 999px;
+      font-size: 13.5px; font-weight: 400; letter-spacing: 0.02em;
+      text-decoration: none;
+      background: rgba(255,255,255,0.7);
+      color: var(--bark);
+      border: 0.5px solid rgba(194,120,112,0.3);
+      backdrop-filter: blur(12px);
+      transition: transform 200ms ease, background 200ms ease;
+    }
+    .btn-secondary:hover { transform: translateY(-1px); background: rgba(255,255,255,0.9); }
+
+    /* Trust strip */
+    .trust-strip {
+      margin-top: 90px;
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      padding: 22px 0;
+      border-top: 0.5px solid rgba(194,120,112,0.2);
+      border-bottom: 0.5px solid rgba(194,120,112,0.2);
+    }
+    .trust-cell {
+      padding: 0 24px;
+      border-left: 0.5px solid rgba(194,120,112,0.15);
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .trust-cell:first-child { border-left: none; }
+    .trust-key {
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.16em;
+      color: var(--rose-deep); opacity: 0.8; text-transform: uppercase;
+    }
+    .trust-val {
+      font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 400;
+      color: var(--bark); letter-spacing: -0.01em;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: flex; align-items: center; gap: 12px;
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted); opacity: 0.8; margin-bottom: 28px;
+    }
+    .section-label-rule { width: 24px; height: 0.5px; background: currentColor; opacity: 0.5; }
+
+    /* ── PROTOCOLS ── */
+    .protocols {
+      position: relative; padding: 100px 36px 80px;
+      background: linear-gradient(180deg, var(--cream), var(--cream-2) 50%, var(--cream));
+    }
+    .protocols-inner { max-width: 1240px; margin: 0 auto; position: relative; }
+    .protocols-header {
+      display: grid; grid-template-columns: 1.35fr 1fr;
+      gap: 80px; margin-bottom: 64px; align-items: end;
+    }
+    .protocols-h2 {
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(40px, 5vw, 74px); line-height: 1.0;
+      letter-spacing: -0.03em; color: var(--bark); margin: 0;
+    }
+    .protocols-h2 em { font-style: italic; color: var(--rose-deep); }
+    .protocols-blurb {
+      font-size: 15.5px; line-height: 1.6; color: var(--text-mid);
+      margin: 0; font-weight: 300;
+    }
+    .protocols-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    }
+    .pcard {
+      position: relative; padding: 32px 32px 26px; border-radius: 24px;
+      border: 0.5px solid rgba(194,120,112,0.2);
+      overflow: hidden; min-height: 360px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform 240ms ease, box-shadow 240ms ease;
+    }
+    .pcard:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(58,40,32,0.12);
+    }
+    .pcard-orb {
+      position: absolute; right: -50px; top: -50px;
+      width: 200px; height: 200px; border-radius: 50%;
+      filter: blur(1px); pointer-events: none;
+    }
+    .pcard-num {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      letter-spacing: 0.18em; color: var(--text-muted); opacity: 0.8;
+    }
+    .pcard-status {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 999px;
+      font-family: 'DM Mono', monospace; font-size: 8.5px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+    }
+    .pcard-status--now {
+      background: rgba(194,120,112,0.1); border: 0.5px solid rgba(194,120,112,0.3);
+      color: var(--rose-deep);
+    }
+    .pcard-status--later {
+      background: rgba(200,168,160,0.1); border: 0.5px solid rgba(200,168,160,0.25);
+      color: var(--sand);
+    }
+    .pcard-status-dot {
+      width: 4px; height: 4px; border-radius: 50%; background: currentColor;
+    }
+    .pcard-body { position: relative; margin-top: auto; }
+    .pcard-formula { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 14px; }
+    .pcard-code {
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: 34px; line-height: 1; letter-spacing: -0.02em;
+      color: var(--bark); margin: 0 0 5px;
+    }
+    .pcard-name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 17px; color: var(--rose-deep); opacity: 0.85; margin-bottom: 16px; }
+    .pcard-purpose { font-size: 13.5px; line-height: 1.55; color: var(--text-mid); margin: 0 0 18px; font-weight: 300; }
+    .pcard-foot {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 14px; border-top: 0.5px solid rgba(194,120,112,0.18);
+    }
+    .pcard-cadence { font-size: 11.5px; color: var(--text-muted); }
+    .pcard-price { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--rose); display: block; margin-top: 3px; }
+    .pcard-link {
+      font-size: 12px; font-weight: 500; color: var(--bark); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 5px; opacity: 0.7;
+      transition: opacity 180ms ease;
+    }
+    .pcard-link:hover { opacity: 1; }
+    .protocols-disclaimer {
+      max-width: 860px; margin: 56px auto 0; padding: 20px 24px;
+      border-radius: 14px; background: rgba(200,168,160,0.08);
+      border: 0.5px solid rgba(194,120,112,0.18);
+    }
+    .protocols-disclaimer-label {
+      font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--rose-deep); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .protocols-disclaimer-label::before { content: ''; width: 14px; height: 0.5px; background: currentColor; opacity: 0.5; }
+    .protocols-disclaimer p { font-size: 12.5px; line-height: 1.65; color: var(--text-mid); margin: 0; font-weight: 300; }
+
+    /* ── HOW IT WORKS ── */
+    .protocol {
+      position: relative; padding: 80px 36px 100px;
+      background: linear-gradient(180deg, var(--cream) 0%, var(--cream-3) 50%, var(--cream-2) 100%);
+      overflow: hidden;
+    }
+    .protocol-grid-bg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.35; pointer-events: none; }
+    .protocol-inner { max-width: 1240px; margin: 0 auto; position: relative; }
+    .protocol-h2 {
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(40px, 5vw, 74px); line-height: 1.0;
+      letter-spacing: -0.03em; color: var(--bark); margin: 0 0 72px;
+      max-width: 860px;
+    }
+    .protocol-h2 em { font-style: italic; color: var(--rose-deep); }
+    .protocol-grid {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 3px; border-radius: 28px; overflow: hidden;
+      border: 0.5px solid rgba(194,120,112,0.18);
+      background: rgba(194,120,112,0.08);
+      box-shadow: 0 24px 64px rgba(58,40,32,0.12);
+    }
+    .pstep {
+      padding: 32px 24px 28px;
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(16px);
+      min-height: 340px; display: flex; flex-direction: column; gap: 16px;
+      position: relative;
+    }
+    .pstep-head { display: flex; justify-content: space-between; align-items: flex-start; }
+    .pstep-num { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--text-muted); }
+    .pstep-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.7); border: 0.5px solid rgba(194,120,112,0.22);
+      font-size: 10.5px; font-weight: 500; letter-spacing: 0.04em; color: var(--text-muted); text-transform: uppercase;
+    }
+    .pstep-body { flex: 1; display: flex; flex-direction: column; padding-top: 52px; }
+    .pstep-title {
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: 32px; line-height: 1; letter-spacing: -0.025em; color: var(--bark); margin: 0 0 12px;
+    }
+    .pstep-text { font-size: 13px; line-height: 1.6; color: var(--text-mid); margin: 0; font-weight: 300; }
+
+    /* ── RESULTS ── */
+    .science { position: relative; padding: 100px 36px; background: var(--cream); overflow: hidden; }
+    .science-inner { max-width: 1240px; margin: 0 auto; position: relative; }
+    .science-header { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; margin-bottom: 52px; }
+    .science-h2 {
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(36px, 4.2vw, 62px); line-height: 1.05;
+      letter-spacing: -0.03em; margin: 0 0 22px;
+      color: var(--bark);
+    }
+    .science-h2 em { font-style: italic; color: var(--rose-deep); }
+    .science-blurb { font-size: 17px; line-height: 1.55; color: var(--text-mid); margin: 0; max-width: 520px; font-weight: 300; }
+    .science-arrows { display: flex; gap: 10px; align-self: end; }
+    .science-arrow {
+      width: 46px; height: 46px; border-radius: 999px;
+      border: 0.5px solid rgba(194,120,112,0.3); background: var(--white);
+      color: var(--bark); cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 3px 12px rgba(58,40,32,0.07);
+      transition: background 180ms ease;
+    }
+    .science-arrow:hover { background: var(--cream-2); }
+    .science-arrow:disabled { opacity: 0.3; cursor: not-allowed; box-shadow: none; }
+    .science-track {
+      display: grid; grid-auto-flow: column;
+      grid-auto-columns: calc((100% - 60px) / 4); gap: 18px;
+      overflow-x: auto; overflow-y: hidden;
+      scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 8px;
+    }
+    .science-track::-webkit-scrollbar { display: none; }
+    .tcard {
+      position: relative; border-radius: 18px; overflow: hidden;
+      aspect-ratio: 3/4; scroll-snap-align: start;
+      transition: transform 200ms ease;
+    }
+    .tcard:hover { transform: scale(1.02); }
+    .tcard-shade {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(58,40,32,0.24) 0%, transparent 30%, transparent 50%, rgba(58,40,32,0.55) 100%);
+      pointer-events: none;
+    }
+    .tcard-chip {
+      position: absolute; top: 14px; left: 14px;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 6px 12px 6px 10px; border-radius: 999px;
+      background: rgba(250,246,240,0.9); border: 0.5px solid rgba(250,246,240,0.7);
+      backdrop-filter: blur(10px); font-size: 12px; font-weight: 500; color: var(--bark);
+    }
+    .tcard-icon { font-size: 12px; opacity: 0.6; }
+    .tcard-blurb {
+      position: absolute; left: 16px; right: 16px; bottom: 16px;
+      color: var(--cream); font-size: 13px; line-height: 1.4; opacity: 0.95;
+      font-weight: 300;
+    }
+    .science-foot {
+      margin-top: 28px; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 20px;
+      padding-top: 20px; border-top: 0.5px solid rgba(194,120,112,0.18);
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); opacity: 0.75;
+    }
+
+    /* ── FAQ ── */
+    .faq { position: relative; padding: 100px 36px; background: var(--cream-2); }
+    .faq-inner { max-width: 1240px; margin: 0 auto; }
+    .faq-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 80px; align-items: start; }
+    .faq-side { position: sticky; top: 110px; }
+    .faq-h2 {
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(36px, 4.2vw, 62px); line-height: 1.0;
+      letter-spacing: -0.03em; color: var(--bark); margin: 0;
+    }
+    .faq-h2 em { font-style: italic; color: var(--rose-deep); }
+    .faq-see-all {
+      display: inline-flex; align-items: center; gap: 7px;
+      margin-top: 28px; padding: 8px 16px 8px 18px; border-radius: 999px;
+      border: 0.5px solid rgba(194,120,112,0.3); background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px); font-size: 13px; font-weight: 400; color: var(--bark);
+      text-decoration: none; transition: background 180ms ease, transform 180ms ease;
+    }
+    .faq-see-all:hover { background: rgba(255,255,255,0.95); transform: translateY(-1px); }
+    .faq-item { border-top: 0.5px solid rgba(194,120,112,0.2); padding: 26px 0; cursor: pointer; }
+    .faq-item:last-child { border-bottom: 0.5px solid rgba(194,120,112,0.2); }
+    .faq-row { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .faq-q {
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: 22px; line-height: 1.2; letter-spacing: -0.015em;
+      color: var(--bark); margin: 0; flex: 1;
+    }
+    .faq-toggle {
+      width: 30px; height: 30px; border-radius: 999px;
+      border: 0.5px solid rgba(194,120,112,0.3); background: transparent;
+      color: var(--bark); display: inline-flex; align-items: center; justify-content: center;
+      transition: all 220ms ease; flex-shrink: 0; cursor: pointer;
+    }
+    .faq-item.is-open .faq-toggle { background: var(--bark); color: var(--cream); border-color: var(--bark); }
+    .faq-toggle .icon-plus { display: inline; }
+    .faq-toggle .icon-minus { display: none; }
+    .faq-item.is-open .faq-toggle .icon-plus { display: none; }
+    .faq-item.is-open .faq-toggle .icon-minus { display: inline; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 380ms ease, opacity 230ms ease; opacity: 0; }
+    .faq-item.is-open .faq-a { max-height: 280px; opacity: 1; }
+    .faq-a p { font-size: 15px; line-height: 1.65; color: var(--text-mid); margin: 14px 0 0; font-weight: 300; }
+
+    /* ── ISI ── */
+    .isi-section { background: var(--cream-3); border-top: 0.5px solid rgba(194,120,112,0.15); padding: 26px 36px; }
+    .isi-inner { max-width: 1240px; margin: 0 auto; }
+    .isi-details summary { list-style: none; }
+    .isi-details summary::-webkit-details-marker { display: none; }
+    .isi-summary { display: flex; align-items: center; gap: 14px; cursor: pointer; padding: 10px 0; flex-wrap: wrap; }
+    .isi-rx { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose-deep); padding: 5px 12px; border-radius: 999px; background: rgba(194,120,112,0.08); border: 0.5px solid rgba(194,120,112,0.25); }
+    .isi-title { font-size: 13px; font-weight: 500; color: var(--bark); opacity: 0.8; }
+    .isi-toggle { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+    .isi-body { padding: 24px 0 10px; margin-top: 14px; border-top: 0.5px solid rgba(194,120,112,0.15); }
+    .isi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .isi-col h4 { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose-deep); margin: 22px 0 8px; }
+    .isi-col h4:first-child { margin-top: 0; }
+    .isi-col p { font-size: 12.5px; line-height: 1.65; color: var(--text-mid); margin: 0; font-weight: 300; }
+    .isi-col ul { margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .isi-col ul li { position: relative; padding-left: 16px; font-size: 12.5px; line-height: 1.6; color: var(--text-mid); font-weight: 300; }
+    .isi-col ul li::before { content: ''; position: absolute; left: 4px; top: 0.66em; width: 3px; height: 3px; border-radius: 50%; background: var(--rose); }
+    .isi-col ul li strong { font-weight: 500; }
+    .isi-footer-note { margin-top: 24px; padding-top: 16px; border-top: 0.5px solid rgba(194,120,112,0.12); font-size: 11.5px; line-height: 1.65; color: var(--text-muted); }
+
+    /* ── CTA ── */
+    .cta {
+      position: relative; padding: 120px 36px 160px;
+      background:
+        radial-gradient(ellipse 100% 60% at 80% 15%, #5a3020 0%, transparent 55%),
+        radial-gradient(ellipse 70% 50% at 5% 85%, #3a2018 0%, transparent 55%),
+        var(--bark);
+      color: var(--cream);
+      overflow: hidden;
+    }
+    .cta-bloom {
+      position: absolute; right: -100px; top: -100px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, rgba(232,200,192,0.16), rgba(200,168,160,0.08) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-bloom-2 {
+      position: absolute; left: -80px; bottom: -80px;
+      width: 380px; height: 380px; border-radius: 50%;
+      background: radial-gradient(circle at 60% 60%, rgba(200,168,160,0.10), transparent 65%);
+      pointer-events: none;
+    }
+    .cta-inner { position: relative; max-width: 1240px; margin: 0 auto; }
+    .cta-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 96px; align-items: start; }
+    .cta-left { display: flex; flex-direction: column; gap: 30px; }
+    .section-label--light { color: rgba(250,246,240,0.55); }
+    .cta-h2 {
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(44px, 5.4vw, 84px); line-height: 0.96;
+      letter-spacing: -0.03em; margin: 0;
+      color: var(--cream);
+    }
+    .cta-h2 em { font-style: italic; color: var(--blush); }
+    .cta-sub { font-size: 18px; line-height: 1.55; opacity: 0.72; margin: 0; max-width: 480px; font-weight: 300; }
+    .cta-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 15px 28px; border-radius: 999px;
+      background: rgba(255,255,255,0.12); color: var(--cream);
+      font-size: 14.5px; font-weight: 500; text-decoration: none;
+      border: 0.5px solid rgba(250,246,240,0.25);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset;
+      transition: background 180ms ease;
+    }
+    .cta-btn:hover { background: rgba(255,255,255,0.20); }
+    .cta-note { font-size: 13.5px; opacity: 0.5; font-weight: 300; }
+    .cta-stats { display: flex; flex-direction: column; border-top: 0.5px solid rgba(250,246,240,0.12); }
+    .cta-stat { padding: 38px 0 34px; border-bottom: 0.5px solid rgba(250,246,240,0.12); }
+    .cta-stat-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    .cta-stat-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,246,240,0.45); }
+    .cta-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px; background: rgba(232,200,192,0.12); border: 0.5px solid rgba(232,200,192,0.35); font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blush); }
+    .cta-stat-row { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: baseline; }
+    .cta-stat-num {
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(64px, 8.5vw, 112px);
+      letter-spacing: -0.04em; line-height: 0.85; color: var(--cream);
+    }
+    .cta-stat-num--accent { color: var(--blush); }
+    .cta-stat-body { display: flex; flex-direction: column; gap: 8px; max-width: 340px; }
+    .cta-stat-label { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 1.8vw, 24px); font-weight: 400; color: var(--cream); line-height: 1.2; }
+    .cta-stat-text { font-size: 13px; line-height: 1.55; color: rgba(250,246,240,0.48); margin: 0; font-weight: 300; }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--cream); border-top: 0.5px solid rgba(194,120,112,0.15); padding: 64px 36px 40px; }
+    .footer-inner { max-width: 1240px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 48px; border-bottom: 0.5px solid rgba(194,120,112,0.15); }
+    .footer-brand p { font-size: 13.5px; line-height: 1.6; opacity: 0.6; max-width: 300px; margin-top: 22px; font-weight: 300; }
+    .footer-contact { display: inline-flex; align-items: center; gap: 7px; font-family: 'DM Mono', monospace; font-size: 11.5px; letter-spacing: 0.04em; color: var(--text); text-decoration: none; border-bottom: 0.5px solid rgba(58,40,32,0.22); padding-bottom: 2px; opacity: 0.8; margin-top: 4px; }
+    .footer-col-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.55; color: var(--text-muted); margin-bottom: 18px; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col a { font-size: 13.5px; color: var(--text-mid); text-decoration: none; opacity: 0.75; font-weight: 300; }
+    .footer-col a:hover { opacity: 1; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: flex-start; padding-top: 30px; gap: 40px; flex-wrap: wrap; }
+    .footer-fineprint { font-size: 10.5px; line-height: 1.6; opacity: 0.45; margin: 0; max-width: 680px; font-weight: 300; }
+    .footer-copyright { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; opacity: 0.45; text-transform: uppercase; }
+
+    @media (max-width: 960px) {
+      .nav-inner { grid-template-columns: 1fr auto; padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-actions .nav-signin { display: none; }
+      .protocols-header { grid-template-columns: 1fr; gap: 28px; }
+      .protocols-grid { grid-template-columns: 1fr; }
+      .protocol-grid { grid-template-columns: 1fr; }
+      .science-header { grid-template-columns: 1fr; gap: 20px; }
+      .science-track { grid-auto-columns: 76%; }
+      .faq-grid { grid-template-columns: 1fr; gap: 28px; }
+      .faq-side { position: static; }
+      .cta-grid { grid-template-columns: 1fr; gap: 44px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .trust-strip { grid-template-columns: 1fr 1fr; }
+      .trust-cell { padding: 14px 18px; border-left: none; border-top: 0.5px solid rgba(194,120,112,0.15); }
+      .trust-cell:nth-child(odd) { border-right: 0.5px solid rgba(194,120,112,0.15); }
+      .trust-cell:first-child, .trust-cell:nth-child(2) { border-top: none; }
+      .isi-grid { grid-template-columns: 1fr; gap: 0; }
+    }
+  
+    .nav-link--active{opacity:1!important;background:rgba(200,176,154,0.15)}
+    .page-hero{padding:80px 36px 72px;background:linear-gradient(160deg,var(--cream) 0%,var(--cream-2) 100%);border-bottom:0.5px solid rgba(194,120,112,0.15)}
+    .page-hero-inner{max-width:1240px;margin:0 auto}
+    .page-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:20px;display:flex;align-items:center;gap:10px;opacity:0.85}
+    .page-eyebrow::before{content:'';width:20px;height:0.5px;background:currentColor}
+    .page-h1{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(44px,5.5vw,82px);line-height:0.97;letter-spacing:-0.03em;color:var(--bark);margin:0}
+    .page-h1 em{font-style:italic;color:var(--rose-deep)}
+    .page-sub{font-size:17px;line-height:1.6;color:var(--text-mid);margin:24px 0 0;font-weight:300;max-width:600px}
+    .content-section{padding:80px 36px}
+    .content-section--alt{background:var(--cream-2)}
+    .content-inner{max-width:1240px;margin:0 auto}
+    .content-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+    .content-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+    .content-h2{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(34px,4vw,56px);line-height:1.05;letter-spacing:-0.025em;color:var(--bark);margin:0 0 20px}
+    .content-h2 em{font-style:italic;color:var(--rose-deep)}
+    .content-h3{font-family:'Playfair Display',serif;font-weight:400;font-size:26px;line-height:1.1;letter-spacing:-0.02em;color:var(--bark);margin:0 0 12px}
+    .content-h3 em{font-style:italic}
+    .content-p{font-size:15.5px;line-height:1.7;color:var(--text-mid);margin:0 0 16px;font-weight:300}
+    .content-p:last-child{margin-bottom:0}
+    .info-card{background:var(--white);border:0.5px solid rgba(194,120,112,0.2);border-radius:20px;padding:28px;transition:transform 220ms ease,box-shadow 220ms ease}
+    .info-card:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(58,40,32,0.09)}
+    .step-list{display:flex;flex-direction:column}
+    .step-item{display:grid;grid-template-columns:56px 1fr;gap:20px;padding:28px 0;border-bottom:0.5px solid rgba(194,120,112,0.15);align-items:start}
+    .step-item:first-child{padding-top:0}
+    .step-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:400;color:var(--blush-2);line-height:1;letter-spacing:-0.03em;margin-top:2px}
+    .mol-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:rgba(194,120,112,0.08);border:0.5px solid rgba(194,120,112,0.25);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--rose-deep);margin-bottom:12px}
+    .faq-standalone .faq-item{border-top:0.5px solid rgba(194,120,112,0.2);padding:24px 0;cursor:pointer}
+    .faq-standalone .faq-item:last-child{border-bottom:0.5px solid rgba(194,120,112,0.2)}
+    .faq-standalone .faq-row{display:flex;justify-content:space-between;align-items:center;gap:24px}
+    .faq-standalone .faq-q{font-family:'Playfair Display',serif;font-weight:400;font-size:21px;line-height:1.2;letter-spacing:-0.015em;color:var(--bark);margin:0;flex:1}
+    .faq-standalone .faq-toggle{width:30px;height:30px;border-radius:999px;border:0.5px solid rgba(194,120,112,0.3);background:transparent;color:var(--bark);display:inline-flex;align-items:center;justify-content:center;transition:all 220ms ease;flex-shrink:0;cursor:pointer}
+    .faq-standalone .faq-item.is-open .faq-toggle{background:var(--bark);color:var(--cream)}
+    .faq-standalone .faq-toggle .icon-plus{display:inline}
+    .faq-standalone .faq-toggle .icon-minus{display:none}
+    .faq-standalone .faq-item.is-open .faq-toggle .icon-plus{display:none}
+    .faq-standalone .faq-item.is-open .faq-toggle .icon-minus{display:inline}
+    .faq-standalone .faq-a{max-height:0;overflow:hidden;transition:max-height 360ms ease,opacity 220ms ease;opacity:0}
+    .faq-standalone .faq-item.is-open .faq-a{max-height:400px;opacity:1}
+    .faq-standalone .faq-a p{font-size:15px;line-height:1.65;color:var(--text-mid);margin:12px 0 0;font-weight:300}
+    .form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+    .form-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted)}
+    .form-input{width:100%;padding:13px 16px;border-radius:12px;border:0.5px solid rgba(194,120,112,0.3);background:var(--white);font-family:'DM Sans',sans-serif;font-size:15px;color:var(--bark);outline:none;transition:border-color 180ms ease}
+    .form-input:focus{border-color:var(--rose)}
+    .form-submit{width:100%;padding:14px;border-radius:999px;background:var(--bark);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border:none;cursor:pointer;letter-spacing:0.02em;transition:background 180ms ease}
+    .form-submit:hover{background:var(--bark-mid)}
+    .form-card{background:var(--white);border:0.5px solid rgba(194,120,112,0.2);border-radius:24px;padding:40px;max-width:480px;width:100%}
+    .form-center{display:flex;justify-content:center;align-items:center;min-height:80vh;padding:40px 20px}
+    .proto-band{height:4px;border-radius:999px;margin-bottom:28px;width:48px}
+    .tag-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .tag{display:inline-flex;padding:5px 14px;border-radius:999px;background:rgba(194,120,112,0.08);border:0.5px solid rgba(194,120,112,0.2);font-size:12.5px;color:var(--text-mid);font-weight:300}
+    @media(max-width:960px){.content-grid-2{grid-template-columns:1fr;gap:36px}.content-grid-3{grid-template-columns:1fr}.page-hero{padding:60px 20px 52px}.content-section{padding:60px 20px}}</style>
+</head>
+<body>
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Rx Only — Prescription required</span><span class="sep">✦</span>
+    <span>Licensed U.S. providers</span><span class="sep">✦</span>
+    <span>Free shipping, all 50 states</span><span class="sep">✦</span>
+    <span>Monthly physician check-ins included</span><span class="sep">✦</span>
+    <span>Designed for her routine, not his</span><span class="sep">✦</span>
+    <span>Early members get 25% off their first month</span><span class="sep">✦</span>
+    <span>Rx Only — Prescription required</span><span class="sep">✦</span>
+    <span>Licensed U.S. providers</span><span class="sep">✦</span>
+    <span>Free shipping, all 50 states</span><span class="sep">✦</span>
+    <span>Monthly physician check-ins included</span><span class="sep">✦</span>
+    <span>Designed for her routine, not his</span><span class="sep">✦</span>
+    <span>Early members get 25% off their first month</span><span class="sep">✦</span>
+  </div>
+</div>
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="lustre-wm">lustre<sup>health</sup></span></a>
+    <nav class="nav-links"><a class="nav-link" href="how-it-works.html">How it Works</a><a class="nav-link nav-link--active" href="protocols.html">Protocols</a><a class="nav-link" href="results.html">Results</a><a class="nav-link" href="faq.html">FAQ</a></nav>
+    <div class="nav-actions">
+      <a href="login.html" class="nav-signin">Patient sign in</a>
+      <a href="protocols.html" class="nav-cta">Get started <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 6h6m0 0L6 3m3 3L6 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">The catalog</div>
+    <h1 class="page-h1">Four protocols.<br><em>One routine</em>, built around you.</h1>
+    <p class="page-sub">Not a supplement shelf. Every protocol is prescribed by a licensed clinician and compounded to USP-797 sterile standards — the same level of care as your best medspa visit, delivered to your door.</p>
+  </div>
+</div>
+<section class="content-section">
+  <div class="content-inner">
+    <div class="protocols-grid">
+      <article class="pcard" style="background:linear-gradient(160deg,#f5e8e4 0%,rgba(255,255,255,.6) 55%,rgba(255,255,255,.88) 100%)">
+        <div class="pcard-orb" style="background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.95),rgba(232,200,192,.6) 55%,transparent 80%)"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><span class="pcard-num">01 / 04</span><span class="pcard-status pcard-status--now"><span class="pcard-status-dot"></span>Available now</span></div>
+        <div class="pcard-body"><div class="pcard-formula">GHK-Cu + Sermorelin</div><h3 class="pcard-code">The Glow Protocol</h3><div class="pcard-name">Skin luminosity &amp; anti-aging</div><p class="pcard-purpose">GHK-Cu copper peptide paired with Sermorelin for collagen synthesis, texture, firmness, and deep-sleep repair.</p><div class="pcard-foot"><div><span class="pcard-cadence">Nightly · 3–6 mo</span><span class="pcard-price">From $195/mo</span></div><a class="pcard-link" href="the-glow-protocol.html">Details <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6m0 0L5 2m3 3L5 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></a></div></div>
+      </article>
+      <article class="pcard" style="background:linear-gradient(160deg,#f0e8dc 0%,rgba(255,255,255,.6) 55%,rgba(255,255,255,.88) 100%)">
+        <div class="pcard-orb" style="background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.95),rgba(232,210,184,.6) 55%,transparent 80%)"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><span class="pcard-num">02 / 04</span><span class="pcard-status pcard-status--now"><span class="pcard-status-dot"></span>Available now</span></div>
+        <div class="pcard-body"><div class="pcard-formula">Sermorelin + Tesamorelin</div><h3 class="pcard-code">The Recomposition Protocol</h3><div class="pcard-name">Lean toning &amp; body composition</div><p class="pcard-purpose">The premium GLP-1 companion. Targets visceral fat while preserving lean muscle and addressing skin laxity.</p><div class="pcard-foot"><div><span class="pcard-cadence">Daily · 3–6 mo</span><span class="pcard-price">From $250/mo</span></div><a class="pcard-link" href="the-recomposition-protocol.html">Details <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6m0 0L5 2m3 3L5 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></a></div></div>
+      </article>
+      <article class="pcard" style="background:linear-gradient(160deg,#e4ede8 0%,rgba(255,255,255,.6) 55%,rgba(255,255,255,.88) 100%)">
+        <div class="pcard-orb" style="background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.95),rgba(180,218,200,.5) 55%,transparent 80%)"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><span class="pcard-num">03 / 04</span><span class="pcard-status pcard-status--now"><span class="pcard-status-dot"></span>Available now</span></div>
+        <div class="pcard-body"><div class="pcard-formula">Sermorelin</div><h3 class="pcard-code">The Recovery Protocol</h3><div class="pcard-name">Sleep, energy &amp; cellular repair</div><p class="pcard-purpose">The foundational protocol. Restores growth hormone signaling for better sleep, daytime energy, and cellular repair.</p><div class="pcard-foot"><div><span class="pcard-cadence">Nightly · 3–6 mo</span><span class="pcard-price">From $195/mo</span></div><a class="pcard-link" href="the-recovery-protocol.html">Details <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6m0 0L5 2m3 3L5 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></a></div></div>
+      </article>
+      <article class="pcard" style="background:linear-gradient(160deg,#ede8f0 0%,rgba(255,255,255,.6) 55%,rgba(255,255,255,.88) 100%)">
+        <div class="pcard-orb" style="background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.95),rgba(200,184,224,.5) 55%,transparent 80%)"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><span class="pcard-num">04 / 04</span><span class="pcard-status pcard-status--later"><span class="pcard-status-dot"></span>Post-PCAC · Jul 2026</span></div>
+        <div class="pcard-body"><div class="pcard-formula">BPC-157</div><h3 class="pcard-code">The Repair Protocol</h3><div class="pcard-name">Gut-skin axis &amp; inflammation</div><p class="pcard-purpose">Addresses the gut-skin connection topical routines can't touch — reducing inflammation and supporting skin from the inside out.</p><div class="pcard-foot"><div><span class="pcard-cadence">Daily · 4–8 wk</span><span class="pcard-price">From $225/mo</span></div><a class="pcard-link" href="the-repair-protocol.html">Details <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6m0 0L5 2m3 3L5 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></a></div></div>
+      </article>
+    </div>
+    <div class="protocols-disclaimer" style="max-width:100%">
+      <div class="protocols-disclaimer-label">Regulatory status</div>
+      <p>Protocols marked Post-PCAC are pending FDA 503A reclassification at the PCAC meeting on July 23–24, 2026. All available protocols are dispensed by licensed U.S. 503A pharmacies. None of these statements have been evaluated by the FDA.</p>
+    </div>
+  </div>
+</section>
+<section class="isi-section">
+  <div class="isi-inner">
+    <details class="isi-details">
+      <summary class="isi-summary">
+        <span class="isi-rx">Rx Only</span>
+        <span class="isi-title">Important Safety Information &amp; Prescribing Information</span>
+        <span class="isi-toggle">Expand ↓</span>
+      </summary>
+      <div class="isi-body">
+        <div class="isi-grid">
+          <div class="isi-col">
+            <h4>Indications</h4><p>Compounded peptides are prescribed off-label for wellness, performance, and recovery goals under the supervision of a licensed medical provider. They are not intended to diagnose, treat, cure, or prevent any disease.</p>
+            <h4>Rx Only</h4><p>All peptides dispensed by Lustre Health are prescription-only medications requiring a valid prescription from a licensed provider.</p>
+            <h4>Compounded Medications Notice</h4><p>Compounded medications are not FDA-approved drug products. They are prepared by state-licensed 503A compounding pharmacies under USP Chapter 797 standards.</p>
+            <h4>Who Should Not Use</h4>
+            <ul><li>Active or history of malignancy</li><li>Pregnancy or breastfeeding</li><li>Known hypersensitivity to any peptide component</li><li>Uncontrolled diabetes or severe insulin resistance</li></ul>
+          </div>
+          <div class="isi-col">
+            <h4>Common Side Effects</h4>
+            <ul>
+              <li><strong>BPC-157:</strong> Generally well-tolerated. Possible injection site reactions.</li>
+              <li><strong>Sermorelin / Tesamorelin:</strong> Water retention, joint discomfort, transient tingling.</li>
+              <li><strong>GHK-Cu:</strong> Generally well-tolerated. Mild injection site reactions possible.</li>
+            </ul>
+            <h4>Drug Interactions</h4><p>Peptides may interact with insulin, hormone therapies, and immunosuppressants. Disclose all medications to your provider.</p>
+            <h4>Administration</h4><p>Subcutaneous injection. Full training provided with your first shipment.</p>
+          </div>
+        </div>
+        <p class="isi-footer-note">Full prescribing information is reviewed with you by your Lustre Health provider during consultation. This is a summary only.</p>
+      </div>
+    </details>
+  </div>
+</section>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" style="text-decoration:none"><span class="lustre-wm" style="font-size:26px">lustre<sup style="font-size:9px;letter-spacing:0.12em;font-family:'DM Mono',monospace;color:var(--rose);vertical-align:super">health</sup></span></a>
+        <p>Physician-led peptide therapy built for women — protocols designed around skin, body, and longevity.</p>
+        <a class="footer-contact" href="mailto:hello@lustrehealth.com">hello@lustrehealth.com</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Protocols</div>
+        <ul>
+          <li><a href="the-glow-protocol.html">The Glow Protocol</a></li>
+          <li><a href="the-recomposition-protocol.html">The Recomposition Protocol</a></li>
+          <li><a href="the-recovery-protocol.html">The Recovery Protocol</a></li>
+          <li><a href="the-repair-protocol.html">The Repair Protocol</a></li>
+          <li><a href="protocols.html">All protocols →</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Learn</div>
+        <ul>
+          <li><a href="faq.html">All guides</a></li>
+          <li><a href="faq.html">Peptides after GLP-1</a></li>
+          <li><a href="the-glow-protocol.html">GHK-Cu for skin</a></li>
+          <li><a href="the-recovery-protocol.html">Sermorelin explained</a></li>
+          <li><a href="faq.html">The gut-skin axis</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Care</div>
+        <ul>
+          <li><a href="how-it-works.html">How it works</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-fineprint">Rx Only · Prescription required. All protocols dispensed by licensed U.S. 503A compounding pharmacies after prescription by a board-certified physician. Compounded medications are not FDA-approved. Individual results vary.</p>
+      <div class="footer-copyright">© 2026 Lustre Health, Inc.</div>
+    </div>
+  </div>
+</footer>
+<script>(function(){const nav=document.getElementById('nav');let r=0;function u(){nav.classList.toggle('is-solid',window.scrollY>30);r=0;}window.addEventListener('scroll',()=>{if(r)return;r=requestAnimationFrame(u);},{passive:true});u();})();</script>
+
+</body>
+</html>

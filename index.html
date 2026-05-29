@@ -235,7 +235,7 @@
       width: max-content; height: 100%;
       animation: benefits-scroll 32s linear infinite;
     }
-    .benefits-track:hover { animation-play-state: paused; }
+    /* benefits track always scrolls — no hover pause */
     .benefits-pill {
       display: inline-block; padding: 6px 20px; border-radius: 999px;
       font-family: 'Playfair Display', serif; font-style: italic;
@@ -442,14 +442,17 @@
     .pstep-text { font-size: 13px; line-height: 1.6; color: var(--text-mid); margin: 0; font-weight: 300; }
 
     /* ── RESULTS ── */
-    .science { position: relative; padding: 100px 36px; background: var(--cream); overflow: hidden; }
+    .science { position: relative; padding: 100px 0 80px; background: var(--cream); overflow: hidden; }
     .science-inner { max-width: 1240px; margin: 0 auto; position: relative; }
-    .science-header { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; margin-bottom: 52px; }
+    .science-header {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 32px; align-items: end; margin-bottom: 44px;
+      padding: 0 36px;
+    }
     .science-h2 {
       font-family: 'Playfair Display', serif; font-weight: 400;
       font-size: clamp(36px, 4.2vw, 62px); line-height: 1.05;
-      letter-spacing: -0.03em; margin: 0 0 22px;
-      color: var(--bark);
+      letter-spacing: -0.03em; margin: 0 0 22px; color: var(--bark);
     }
     .science-h2 em { font-style: italic; color: var(--rose-deep); }
     .science-blurb { font-size: 17px; line-height: 1.55; color: var(--text-mid); margin: 0; max-width: 520px; font-weight: 300; }
@@ -461,46 +464,71 @@
       display: inline-flex; align-items: center; justify-content: center;
       box-shadow: 0 3px 12px rgba(58,40,32,0.07);
       transition: background 180ms ease;
+      flex-shrink: 0;
     }
     .science-arrow:hover { background: var(--cream-2); }
-    .science-arrow:disabled { opacity: 0.3; cursor: not-allowed; box-shadow: none; }
-    .science-track {
-      display: grid; grid-auto-flow: column;
-      grid-auto-columns: calc((100% - 60px) / 4); gap: 18px;
-      overflow-x: auto; overflow-y: hidden;
-      scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 8px;
+
+    /* ── carousel viewport: edge-to-edge with side fades ── */
+    .carousel-viewport {
+      width: 100%;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      /* fade left and right edges */
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
     }
-    .science-track::-webkit-scrollbar { display: none; }
+    .carousel-viewport.is-dragging { cursor: grabbing; }
+
+    /* ── the moving strip ── */
+    .science-track {
+      display: flex;
+      gap: 18px;
+      padding: 8px 36px 16px;
+      /* width is set by JS */
+      will-change: transform;
+      transition: transform 0ms linear; /* JS overrides this */
+    }
+
+    /* ── individual cards ── */
     .tcard {
       position: relative; border-radius: 18px; overflow: hidden;
-      aspect-ratio: 3/4; scroll-snap-align: start;
-      transition: transform 200ms ease;
+      aspect-ratio: 3/4;
+      flex: 0 0 calc((100vw - 72px - 54px) / 4); /* 4 visible, gutters */
+      max-width: 280px;
+      transition: transform 200ms ease, box-shadow 200ms ease;
     }
-    .tcard:hover { transform: scale(1.02); }
+    .tcard:hover { transform: scale(1.025); box-shadow: 0 16px 48px rgba(58,40,32,0.18); }
     .tcard-shade {
       position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(58,40,32,0.24) 0%, transparent 30%, transparent 50%, rgba(58,40,32,0.55) 100%);
+      background: linear-gradient(180deg, rgba(58,40,32,0.22) 0%, transparent 30%, transparent 52%, rgba(58,40,32,0.58) 100%);
       pointer-events: none;
     }
     .tcard-chip {
       position: absolute; top: 14px; left: 14px;
       display: inline-flex; align-items: center; gap: 7px;
       padding: 6px 12px 6px 10px; border-radius: 999px;
-      background: rgba(250,246,240,0.9); border: 0.5px solid rgba(250,246,240,0.7);
+      background: rgba(250,246,240,0.92); border: 0.5px solid rgba(250,246,240,0.7);
       backdrop-filter: blur(10px); font-size: 12px; font-weight: 500; color: var(--bark);
+      pointer-events: none;
     }
     .tcard-icon { font-size: 12px; opacity: 0.6; }
     .tcard-blurb {
       position: absolute; left: 16px; right: 16px; bottom: 16px;
       color: var(--cream); font-size: 13px; line-height: 1.4; opacity: 0.95;
-      font-weight: 300;
+      font-weight: 300; pointer-events: none;
     }
     .science-foot {
-      margin-top: 28px; display: flex; justify-content: space-between;
+      margin-top: 24px; display: flex; justify-content: space-between;
       align-items: center; flex-wrap: wrap; gap: 20px;
-      padding-top: 20px; border-top: 0.5px solid rgba(194,120,112,0.18);
+      padding: 20px 36px 0; border-top: 0.5px solid rgba(194,120,112,0.18);
       font-family: 'DM Mono', monospace; font-size: 10px;
       letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); opacity: 0.75;
+    }
+    @media(max-width:960px){
+      .tcard{ flex: 0 0 72vw; max-width:none; }
+      .science-header{ grid-template-columns:1fr; gap:20px; }
     }
 
     /* ── FAQ ── */
@@ -660,7 +688,7 @@
       .trust-cell:first-child, .trust-cell:nth-child(2) { border-top: none; }
       .isi-grid { grid-template-columns: 1fr; gap: 0; }
     }
-  </style>
+  @media(max-width:1200px){.nav-link{font-size:12px;padding:8px 10px}}</style>
 </head>
 <body>
 
@@ -685,17 +713,8 @@
 <!-- NAV -->
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <span class="lustre-wm">lustre<sup>health</sup></span>
-    </a>
-    <nav class="nav-links">
-      <a class="nav-link" href="how-it-works.html">How it Works</a>
-      <a class="nav-link" href="protocols.html">Protocols</a>
-      <a class="nav-link" href="results.html">Results</a>
-      <a class="nav-link" href="faq.html">FAQ</a>
-      <a class="nav-link" href="lustre-and-time-optimization.html">Time Optimization</a>
-      <a class="nav-link" href="lustre-and-fitness.html">Fitness</a>
-    </nav>
+    <a href="index.html" class="nav-logo"><span class="lustre-wm">lustre<sup>health</sup></span></a>
+    <nav class="nav-links"><a class="nav-link" href="how-it-works.html">How it Works</a><a class="nav-link" href="protocols.html">Protocols</a><a class="nav-link" href="results.html">Results</a><a class="nav-link" href="faq.html">FAQ</a><a class="nav-link" href="lustre-and-time-optimization.html">Time Optimization</a><a class="nav-link" href="lustre-and-fitness.html">Fitness</a></nav>
     <div class="nav-actions">
       <a href="login.html" class="nav-signin">Patient sign in</a>
       <a href="protocols.html" class="nav-cta">Get started <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 6h6m0 0L6 3m3 3L6 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
@@ -903,24 +922,27 @@
         <p class="science-blurb">Firmer skin. Better sleep. The version of you that looks like you've been taking care of yourself — because you have. Lustre protocols target the systems that actually move the needle.</p>
       </div>
       <div class="science-arrows">
-        <button type="button" class="science-arrow" id="science-prev" aria-label="Previous" disabled>
+        <button type="button" class="science-arrow" id="science-prev" aria-label="Scroll left">
           <svg width="13" height="13" viewBox="0 0 14 14" fill="none" style="transform:scaleX(-1)"><path d="M3 7h8m0 0L7 3m4 4L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
-        <button type="button" class="science-arrow" id="science-next" aria-label="Next">
+        <button type="button" class="science-arrow" id="science-next" aria-label="Scroll right">
           <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7 3m4 4L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
       </div>
     </div>
 
-    <div class="science-track" id="science-track">
-      <div class="tcard" data-card style="background:linear-gradient(160deg, #f0d8d4 0%, #d4a8a0 55%, #b07870 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◈</span><span>Skin</span></div><div class="tcard-blurb">Luminosity, firmness, texture, collagen</div></div>
-      <div class="tcard" data-card style="background:linear-gradient(160deg, #e8d8ec 0%, #b898c0 55%, #886890 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">✦</span><span>Anti-aging</span></div><div class="tcard-blurb">Collagen synthesis, dermal remodeling</div></div>
-      <div class="tcard" data-card style="background:linear-gradient(160deg, #dce8e0 0%, #90b8a0 55%, #607870 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◎</span><span>Body composition</span></div><div class="tcard-blurb">Lean toning, visceral fat, GLP-1 companion</div></div>
-      <div class="tcard" data-card style="background:linear-gradient(160deg, #d8e4ec 0%, #90a8c0 55%, #607088 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">☾</span><span>Sleep</span></div><div class="tcard-blurb">Deep sleep architecture, overnight repair</div></div>
-      <div class="tcard" data-card style="background:linear-gradient(160deg, #dce8dc 0%, #8ab898 55%, #507860 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">↻</span><span>Recovery</span></div><div class="tcard-blurb">Gut-skin axis, inflammation, tissue healing</div></div>
-      <div class="tcard" data-card style="background:linear-gradient(160deg, #f0e8d4 0%, #c8a870 55%, #907840 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◐</span><span>Energy</span></div><div class="tcard-blurb">Cellular energy, mitochondrial output</div></div>
-      <div class="tcard" data-card style="background:linear-gradient(160deg, #ece0e8 0%, #c890b0 55%, #906080 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◇</span><span>Hormone axis</span></div><div class="tcard-blurb">GH signaling, thyroid, estrogen balance</div></div>
-      <div class="tcard" data-card style="background:linear-gradient(160deg, #d8ece8 0%, #80b8b0 55%, #487870 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">∞</span><span>Longevity</span></div><div class="tcard-blurb">Cellular aging, biomarker optimization</div></div>
+    <!-- carousel viewport wraps the track -->
+    <div class="carousel-viewport" id="carousel-viewport">
+      <div class="science-track" id="science-track">
+        <div class="tcard" style="background:linear-gradient(160deg,#f0d8d4 0%,#d4a8a0 55%,#b07870 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◈</span><span>Skin</span></div><div class="tcard-blurb">Luminosity, firmness, texture, collagen</div></div>
+        <div class="tcard" style="background:linear-gradient(160deg,#e8d8ec 0%,#b898c0 55%,#886890 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">✦</span><span>Anti-aging</span></div><div class="tcard-blurb">Collagen synthesis, dermal remodeling</div></div>
+        <div class="tcard" style="background:linear-gradient(160deg,#dce8e0 0%,#90b8a0 55%,#607870 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◎</span><span>Body composition</span></div><div class="tcard-blurb">Lean toning, visceral fat, GLP-1 companion</div></div>
+        <div class="tcard" style="background:linear-gradient(160deg,#d8e4ec 0%,#90a8c0 55%,#607088 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">☾</span><span>Sleep</span></div><div class="tcard-blurb">Deep sleep architecture, overnight repair</div></div>
+        <div class="tcard" style="background:linear-gradient(160deg,#dce8dc 0%,#8ab898 55%,#507860 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">↻</span><span>Recovery</span></div><div class="tcard-blurb">Gut-skin axis, inflammation, tissue healing</div></div>
+        <div class="tcard" style="background:linear-gradient(160deg,#f0e8d4 0%,#c8a870 55%,#907840 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◐</span><span>Energy</span></div><div class="tcard-blurb">Cellular energy, mitochondrial output</div></div>
+        <div class="tcard" style="background:linear-gradient(160deg,#ece0e8 0%,#c890b0 55%,#906080 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◇</span><span>Hormone axis</span></div><div class="tcard-blurb">GH signaling, thyroid, estrogen balance</div></div>
+        <div class="tcard" style="background:linear-gradient(160deg,#d8ece8 0%,#80b8b0 55%,#487870 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">∞</span><span>Longevity</span></div><div class="tcard-blurb">Cellular aging, biomarker optimization</div></div>
+      </div>
     </div>
 
     <div class="science-foot">
@@ -1065,18 +1087,135 @@
     function u(){nav.classList.toggle('is-solid',window.scrollY>30);r=0;}
     window.addEventListener('scroll',()=>{if(r)return;r=requestAnimationFrame(u);},{passive:true});u();
   })();
-  // Carousel
+  // ── Rell-style auto-scrolling drag carousel ──────────────────
   (function(){
-    const track=document.getElementById('science-track');
-    const prev=document.getElementById('science-prev');
-    const next=document.getElementById('science-next');
-    if(!track||!prev||!next)return;
-    function upd(){prev.disabled=track.scrollLeft<=4;next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-4;}
-    function step(d){const c=track.querySelector('[data-card]');if(!c)return;track.scrollBy({left:d*(c.getBoundingClientRect().width+18),behavior:'smooth'});}
-    prev.addEventListener('click',()=>step(-1));
-    next.addEventListener('click',()=>step(1));
-    track.addEventListener('scroll',upd,{passive:true});
-    window.addEventListener('resize',upd);upd();
+    const viewport = document.getElementById('carousel-viewport');
+    const track    = document.getElementById('science-track');
+    const btnPrev  = document.getElementById('science-prev');
+    const btnNext  = document.getElementById('science-next');
+    if (!viewport || !track) return;
+
+    const SPEED     = 1.1;   // px per animation frame (auto-scroll speed)
+    const CARD_GAP  = 18;     // matches CSS gap
+
+    let offset       = 0;     // current translate X in px (positive = scrolled right)
+    let maxOffset    = 0;     // set after measuring
+    let raf          = null;
+    let isHovered    = false;
+    let isDragging   = false;
+    let dragStartX   = 0;
+    let dragStartOff = 0;
+    let lastDragX    = 0;
+    let velocity     = 0;     // for momentum flick
+
+    // ── measure total track width ──────────────────────────────
+    function measure() {
+      maxOffset = track.scrollWidth - viewport.clientWidth;
+    }
+
+    // ── apply transform ────────────────────────────────────────
+    function applyOffset(val) {
+      // clamp to valid range
+      offset = Math.max(0, Math.min(maxOffset, val));
+      track.style.transition = 'none';
+      track.style.transform  = `translateX(${-offset}px)`;
+    }
+
+    // ── animation loop ─────────────────────────────────────────
+    function tick() {
+      if (!isDragging && !isHovered) {
+        // auto-advance — pauses when mouse is over viewport
+        offset += SPEED;
+        if (offset >= maxOffset) offset = 0; // seamless loop
+        track.style.transition = 'none';
+        track.style.transform  = `translateX(${-offset}px)`;
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    // ── arrow buttons ──────────────────────────────────────────
+    function cardWidth() {
+      const c = track.querySelector('.tcard');
+      return c ? c.getBoundingClientRect().width + CARD_GAP : 280;
+    }
+
+    if (btnPrev) btnPrev.addEventListener('click', () => {
+      const target = offset - cardWidth() * 1.5;
+      smoothTo(target);
+    });
+    if (btnNext) btnNext.addEventListener('click', () => {
+      const target = offset + cardWidth() * 1.5;
+      smoothTo(target);
+    });
+
+    function smoothTo(target) {
+      const clamped = Math.max(0, Math.min(maxOffset, target));
+      track.style.transition = 'transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      track.style.transform  = `translateX(${-clamped}px)`;
+      offset = clamped;
+    }
+
+    // ── hover pause ────────────────────────────────────────────
+    // ── hover pause (science carousel only) ──────────────────
+    viewport.addEventListener('mouseenter', () => { isHovered = true;  });
+    viewport.addEventListener('mouseleave', () => { isHovered = false; });
+    // ── drag (mouse) ───────────────────────────────────────────
+    viewport.addEventListener('mousedown', e => {
+      isDragging   = true;
+      dragStartX   = e.clientX;
+      dragStartOff = offset;
+      lastDragX    = e.clientX;
+      velocity     = 0;
+      viewport.classList.add('is-dragging');
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      velocity  = e.clientX - lastDragX;
+      lastDragX = e.clientX;
+      const delta = dragStartX - e.clientX;
+      applyOffset(dragStartOff + delta);
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      viewport.classList.remove('is-dragging');
+      // momentum flick
+      const target = offset - velocity * 4;
+      smoothTo(target);
+    });
+
+    // ── drag (touch) ───────────────────────────────────────────
+    viewport.addEventListener('touchstart', e => {
+      isDragging   = true;
+      dragStartX   = e.touches[0].clientX;
+      dragStartOff = offset;
+      lastDragX    = e.touches[0].clientX;
+      velocity     = 0;
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', e => {
+      if (!isDragging) return;
+      const x  = e.touches[0].clientX;
+      velocity  = x - lastDragX;
+      lastDragX = x;
+      const delta = dragStartX - x;
+      applyOffset(dragStartOff + delta);
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const target = offset - velocity * 4;
+      smoothTo(target);
+    });
+
+    // ── init ───────────────────────────────────────────────────
+    measure();
+    window.addEventListener('resize', measure);
+    raf = requestAnimationFrame(tick);
   })();
   // FAQ
   (function(){

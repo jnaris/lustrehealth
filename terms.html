@@ -662,6 +662,8 @@
     }
   
     .nav-link--active{opacity:1!important;background:rgba(200,176,154,0.15)}
+    @media(max-width:1200px){.nav-link{font-size:12px;padding:8px 10px}}
+    @media(max-width:960px){.nav-links{display:none}}
     .page-hero{padding:80px 36px 72px;background:linear-gradient(160deg,var(--cream) 0%,var(--cream-2) 100%);border-bottom:0.5px solid rgba(194,120,112,0.15)}
     .page-hero-inner{max-width:1240px;margin:0 auto}
     .page-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:20px;display:flex;align-items:center;gap:10px;opacity:0.85}
@@ -716,7 +718,136 @@
     .result-card-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(58,40,32,0.2) 0%,transparent 30%,transparent 55%,rgba(58,40,32,0.6) 100%)}
     .result-card-label{position:absolute;bottom:18px;left:18px;right:18px;color:var(--cream);font-size:13px;line-height:1.4;font-weight:300}
     .result-card-chip{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:rgba(250,246,240,0.9);font-size:11.5px;font-weight:500;color:var(--bark)}
-    @media(max-width:960px){.content-grid-2{grid-template-columns:1fr;gap:36px}.content-grid-3{grid-template-columns:1fr}.page-hero{padding:60px 20px 52px}.content-section{padding:60px 20px}}</style>
+    @media(max-width:960px){.content-grid-2{grid-template-columns:1fr;gap:36px}.content-grid-3{grid-template-columns:1fr}.page-hero{padding:60px 20px 52px}.content-section{padding:60px 20px}}
+    /* ── HAMBURGER ── */
+    .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;border-radius:8px;transition:background 180ms ease}
+    .hamburger:hover{background:rgba(194,120,112,0.1)}
+    .hamburger span{display:block;width:22px;height:1.5px;background:var(--bark);border-radius:2px;transition:transform 280ms ease,opacity 180ms ease;transform-origin:center}
+    .hamburger.is-open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .hamburger.is-open span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .hamburger.is-open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+    .mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--cream);z-index:200;flex-direction:column;padding:100px 32px 48px;overflow-y:auto}
+    .mobile-nav.is-open{display:flex}
+    .mobile-nav-link{font-family:'Playfair Display',serif;font-weight:400;font-size:32px;line-height:1.1;letter-spacing:-0.02em;color:var(--bark);text-decoration:none;padding:16px 0;border-bottom:0.5px solid rgba(194,120,112,0.18);display:flex;align-items:center;justify-content:space-between}
+    .mobile-nav-link em{font-style:italic;color:var(--rose-deep)}
+    .mobile-nav-link:last-of-type{border-bottom:none}
+    .mobile-nav-cta{margin-top:32px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 28px;border-radius:999px;background:var(--bark);color:var(--cream);font-size:15px;font-weight:500;text-decoration:none;letter-spacing:0.02em}
+    .mobile-nav-signin{margin-top:14px;text-align:center;font-size:13px;color:var(--text-muted);text-decoration:none;display:block}
+    .nav{z-index:300}
+
+    /* ── TABLET ≤1024px ── */
+    @media(max-width:1024px){
+      .nav-link{font-size:11.5px;padding:8px 9px}
+      .content-grid-2{grid-template-columns:1fr;gap:40px}
+      .content-grid-3{grid-template-columns:1fr 1fr;gap:24px}
+    }
+
+    /* ── MOBILE ≤768px ── */
+    @media(max-width:768px){
+      /* nav */
+      .nav-inner{grid-template-columns:1fr auto;padding:0 20px;gap:0}
+      .nav-links{display:none}
+      .nav-actions .nav-signin{display:none}
+      .nav-actions .nav-cta{display:none}
+      .hamburger{display:flex}
+      /* marquee */
+      .marquee-wrap{font-size:9px;letter-spacing:0.12em;padding:9px 0}
+      .marquee-track span{padding:0 10px}
+      /* hero */
+      .hero{padding-top:28px;padding-bottom:60px;min-height:auto}
+      .hero-inner{padding:0 20px}
+      .hero-photo-wrap{width:100%;opacity:0.13}
+      .hero-photo-fade{display:none}
+      .hero h1{font-size:clamp(42px,10vw,64px);max-width:100%}
+      .hero-content{margin-top:28px;gap:22px;max-width:100%}
+      .hero-sub{font-size:15px}
+      .hero-ctas{flex-direction:column;gap:10px}
+      .hero-ctas .btn-primary,.hero-ctas .btn-secondary{justify-content:center;padding:14px 20px}
+      .benefits-pill{font-size:clamp(26px,7vw,40px);padding:6px 14px}
+      .benefits-viewport{height:60px}
+      /* trust strip */
+      .trust-strip{margin-top:56px;grid-template-columns:1fr 1fr}
+      .trust-cell{padding:14px 16px;border-left:none;border-top:0.5px solid rgba(194,120,112,0.15)}
+      .trust-cell:nth-child(odd){border-right:0.5px solid rgba(194,120,112,0.15)}
+      .trust-cell:first-child,.trust-cell:nth-child(2){border-top:none}
+      .trust-key{font-size:9px}
+      .trust-val{font-size:14px}
+      /* protocols */
+      .protocols{padding:64px 20px 56px}
+      .protocols-header{grid-template-columns:1fr;gap:20px;margin-bottom:36px}
+      .protocols-h2{font-size:clamp(32px,8vw,50px)}
+      .protocols-grid{grid-template-columns:1fr;gap:14px}
+      .pcard{min-height:auto;padding:22px 20px 18px}
+      .pcard-code{font-size:28px}
+      /* protocol steps */
+      .protocol{padding:60px 20px 72px}
+      .protocol-h2{font-size:clamp(30px,8vw,48px);margin-bottom:36px}
+      .protocol-grid{grid-template-columns:1fr}
+      .pstep{min-height:auto;padding:22px 20px;gap:12px}
+      .pstep-body{padding-top:28px}
+      .pstep-title{font-size:26px}
+      /* science carousel */
+      .science{padding:64px 0 56px}
+      .science-header{padding:0 20px;grid-template-columns:1fr;gap:16px;margin-bottom:28px}
+      .science-h2{font-size:clamp(26px,7vw,42px);margin-bottom:12px}
+      .science-blurb{font-size:15px}
+      .science-arrows{align-self:flex-start}
+      .science-track{padding:8px 20px 16px;gap:12px}
+      .tcard{flex:0 0 76vw;max-width:none}
+      .science-foot{padding:16px 20px 0;flex-direction:column;gap:8px;align-items:flex-start}
+      /* faq */
+      .faq{padding:64px 20px}
+      .faq-grid{grid-template-columns:1fr;gap:28px}
+      .faq-side{position:static}
+      .faq-h2{font-size:clamp(30px,8vw,48px)}
+      .faq-q{font-size:18px}
+      /* isi */
+      .isi-section{padding:20px}
+      .isi-grid{grid-template-columns:1fr;gap:0}
+      /* footer */
+      .footer{padding:48px 20px 32px}
+      .footer-grid{grid-template-columns:1fr;gap:32px;padding-bottom:36px}
+      .footer-bottom{flex-direction:column;gap:14px}
+      /* page hero (inner pages) */
+      .page-hero{padding:56px 20px 48px}
+      .page-h1{font-size:clamp(38px,9vw,60px)}
+      .page-sub{font-size:15px}
+      .content-section{padding:56px 20px}
+      .content-grid-2{grid-template-columns:1fr;gap:32px}
+      .content-grid-3{grid-template-columns:1fr;gap:20px}
+      .content-h2{font-size:clamp(28px,7vw,44px)}
+      .step-item{grid-template-columns:44px 1fr;gap:14px}
+      .step-num{font-size:28px}
+      .form-center{padding:40px 16px}
+      .form-card{padding:28px 24px}
+      /* coming soon */
+      .coming-soon-wrap{padding:48px 20px}
+      .coming-soon-h{font-size:clamp(38px,9vw,60px)}
+      /* section label */
+      .section-label{font-size:9px}
+      /* cta */
+      .cta{padding:72px 20px 100px}
+      .cta-grid{grid-template-columns:1fr;gap:40px}
+      .cta-h2{font-size:clamp(40px,10vw,64px)}
+      .cta-stat-row{grid-template-columns:auto 1fr;gap:20px}
+      .cta-stat-num{font-size:clamp(56px,14vw,88px)}
+    }
+
+    /* ── SMALL PHONES ≤390px ── */
+    @media(max-width:390px){
+      .hero h1{font-size:38px}
+      .benefits-pill{font-size:22px;padding:5px 12px}
+      .benefits-viewport{height:50px}
+      .trust-strip{grid-template-columns:1fr}
+      .trust-cell{border-right:none!important;border-top:0.5px solid rgba(194,120,112,0.15)!important}
+      .trust-cell:first-child{border-top:none!important}
+      .pcard-code{font-size:24px}
+      .tcard{flex:0 0 88vw}
+      .page-h1{font-size:36px}
+      .mobile-nav-link{font-size:26px}
+    }
+
+  </style>
 </head>
 <body>
 <div class="marquee-wrap">
@@ -738,7 +869,7 @@
 <header class="nav" id="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><span class="lustre-wm">lustre<sup>health</sup></span></a>
-    <nav class="nav-links"><a class="nav-link" href="how-it-works.html">How it Works</a><a class="nav-link" href="protocols.html">Protocols</a><a class="nav-link" href="results.html">Results</a><a class="nav-link" href="faq.html">FAQ</a></nav>
+    <nav class="nav-links"><a class="nav-link" href="how-it-works.html">How it Works</a><a class="nav-link" href="protocols.html">Protocols</a><a class="nav-link" href="results.html">Results</a><a class="nav-link" href="faq.html">FAQ</a><a class="nav-link" href="lustre-and-time-optimization.html">Time Optimization</a><a class="nav-link" href="lustre-and-fitness.html">Fitness</a></nav>
     <div class="nav-actions">
       <a href="login.html" class="nav-signin">Patient sign in</a>
       <a href="protocols.html" class="nav-cta">Get started <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 6h6m0 0L6 3m3 3L6 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
@@ -772,5 +903,24 @@
 <section class="isi-section"><div class="isi-inner"><details class="isi-details"><summary class="isi-summary"><span class="isi-rx">Rx Only</span><span class="isi-title">Important Safety Information &amp; Prescribing Information</span><span class="isi-toggle">Expand ↓</span></summary><div class="isi-body"><div class="isi-grid"><div class="isi-col"><h4>Indications</h4><p>Compounded peptides are prescribed off-label for wellness, performance, and recovery goals under the supervision of a licensed medical provider. They are not intended to diagnose, treat, cure, or prevent any disease.</p><h4>Rx Only</h4><p>All peptides dispensed by Lustre Health are prescription-only medications requiring a valid prescription from a licensed provider.</p><h4>Compounded Medications Notice</h4><p>Compounded medications are not FDA-approved drug products. They are prepared by state-licensed 503A compounding pharmacies under USP Chapter 797 standards.</p><h4>Who Should Not Use</h4><ul><li>Active or history of malignancy</li><li>Pregnancy or breastfeeding</li><li>Known hypersensitivity to any peptide component</li><li>Uncontrolled diabetes or severe insulin resistance</li></ul></div><div class="isi-col"><h4>Common Side Effects</h4><ul><li><strong>BPC-157:</strong> Generally well-tolerated. Possible injection site reactions.</li><li><strong>Sermorelin / Tesamorelin:</strong> Water retention, joint discomfort, transient tingling.</li><li><strong>GHK-Cu:</strong> Generally well-tolerated. Mild injection site reactions possible.</li></ul><h4>Drug Interactions</h4><p>Peptides may interact with insulin, hormone therapies, and immunosuppressants. Disclose all medications to your provider.</p><h4>Administration</h4><p>Subcutaneous injection. Full training provided with your first shipment.</p></div></div><p class="isi-footer-note">Full prescribing information is reviewed with you by your Lustre Health provider during consultation. This is a summary only.</p></div></details></div></section>
 <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><a href="index.html" style="text-decoration:none"><span class="lustre-wm" style="font-size:26px">lustre<sup style="font-size:9px;letter-spacing:0.12em;font-family:'DM Mono',monospace;color:var(--rose);vertical-align:super">health</sup></span></a><p>Physician-led peptide therapy built for women — protocols designed around skin, body, and longevity.</p><a class="footer-contact" href="mailto:hello@lustrehealth.com">hello@lustrehealth.com</a></div><div class="footer-col"><div class="footer-col-title">Protocols</div><ul><li><a href="the-glow-protocol.html">The Glow Protocol</a></li><li><a href="the-recomposition-protocol.html">The Recomposition Protocol</a></li><li><a href="the-recovery-protocol.html">The Recovery Protocol</a></li><li><a href="the-repair-protocol.html">The Repair Protocol</a></li><li><a href="protocols.html">All protocols →</a></li></ul></div><div class="footer-col"><div class="footer-col-title">Learn</div><ul><li><a href="faq.html">All guides</a></li><li><a href="faq.html">Peptides after GLP-1</a></li><li><a href="the-glow-protocol.html">GHK-Cu for skin</a></li><li><a href="the-recovery-protocol.html">Sermorelin explained</a></li><li><a href="faq.html">The gut-skin axis</a></li></ul></div><div class="footer-col"><div class="footer-col-title">Care</div><ul><li><a href="how-it-works.html">How it works</a></li><li><a href="about.html">About</a></li><li><a href="faq.html">FAQ</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></div></div><div class="footer-bottom"><p class="footer-fineprint">Rx Only · Prescription required. All protocols dispensed by licensed U.S. 503A compounding pharmacies after prescription by a board-certified physician. Compounded medications are not FDA-approved. Individual results vary.</p><div class="footer-copyright">© 2026 Lustre Health, Inc.</div></div></div></footer><script>(function(){const nav=document.getElementById('nav');let r=0;function u(){nav.classList.toggle('is-solid',window.scrollY>30);r=0;}window.addEventListener('scroll',()=>{if(r)return;r=requestAnimationFrame(u);},{passive:true});u();})();</script>
 
+<script>
+  (function(){
+    const btn=document.getElementById('hamburger');
+    const drawer=document.getElementById('mobile-nav');
+    if(!btn||!drawer)return;
+    btn.addEventListener('click',()=>{
+      const open=drawer.classList.toggle('is-open');
+      btn.classList.toggle('is-open',open);
+      document.body.style.overflow=open?'hidden':'';
+    });
+    drawer.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click',()=>{
+        drawer.classList.remove('is-open');
+        btn.classList.remove('is-open');
+        document.body.style.overflow='';
+      });
+    });
+  })();
+</script>
 </body>
 </html>

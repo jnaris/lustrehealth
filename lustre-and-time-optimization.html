@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coming soon | Lustre Health</title>
+  <title>Lustre & Fitness | Lustre Health</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -811,6 +811,216 @@
       .mobile-nav-link{font-size:26px}
     }
 
+    /* ── ORBIT / FITNESS SHOWCASE PAGE ── */
+    .orbit-page {
+      background:
+        radial-gradient(circle at 84% 8%, rgba(232,200,192,.75), transparent 34%),
+        linear-gradient(90deg, var(--cream) 0%, var(--cream-2) 52%, var(--blush) 100%);
+      padding: 64px 36px 96px;
+    }
+    .orbit-wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .orbit-hero {
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      gap: 48px;
+      align-items: center;
+      margin-bottom: 88px;
+    }
+    .orbit-page .pill {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      border: 0.5px solid rgba(194,120,112,0.25);
+      border-radius: 999px;
+      padding: 7px 14px;
+      color: var(--rose-deep);
+      background: rgba(255,255,255,.5);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .orbit-page .pill::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rose);
+      box-shadow: 0 0 0 3px rgba(194,120,112,0.14);
+    }
+    .orbit-page h1,
+    .orbit-page h2,
+    .orbit-page h3 {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.055em;
+      line-height: 0.95;
+      color: var(--bark);
+      font-weight: 400;
+    }
+    .orbit-page h1 {
+      font-size: clamp(62px, 9vw, 124px);
+      margin: 34px 0 24px;
+    }
+    .orbit-page h1 em,
+    .orbit-page h2 em {
+      color: var(--rose-deep);
+      font-style: italic;
+    }
+    .orbit-page h2 {
+      font-size: clamp(40px, 5vw, 72px);
+      margin: 0 0 16px;
+    }
+    .orbit-page h3 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+    .orbit-page p {
+      color: var(--text-mid);
+      margin-bottom: 14px;
+      font-weight: 300;
+    }
+    .orbit-page .lede {
+      max-width: 650px;
+      color: var(--text-mid);
+      font-size: clamp(17px, 1.8vw, 21px);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .orbit-page .actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .orbit-page .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 24px;
+      border-radius: 999px;
+      background: var(--bark);
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: 500;
+      box-shadow: 0 14px 34px rgba(60,38,31,.12);
+    }
+    .orbit-page .button.secondary {
+      background: rgba(255,255,255,.45);
+      color: var(--bark);
+      border: 0.5px solid rgba(194,120,112,0.28);
+      box-shadow: none;
+    }
+    .orbit-page .mock-frame {
+      border: 0.5px solid rgba(194,120,112,0.24);
+      border-radius: 32px;
+      padding: 14px;
+      background: rgba(255,255,255,.34);
+      box-shadow: 0 30px 90px rgba(60,38,31,.14);
+    }
+    .orbit-page svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 24px;
+    }
+    .orbit-section {
+      border-top: 0.5px solid rgba(194,120,112,0.22);
+      padding: 42px 0;
+    }
+    .orbit-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 0.5px solid rgba(194,120,112,0.22);
+      border-bottom: 0.5px solid rgba(194,120,112,0.22);
+      margin-top: 28px;
+    }
+    .orbit-stat {
+      padding: 22px 24px;
+      border-right: 0.5px solid rgba(194,120,112,0.22);
+    }
+    .orbit-stat:last-child { border-right: 0; }
+    .orbit-page .label {
+      color: var(--rose-deep);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .orbit-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .orbit-feature {
+      background: rgba(255,255,255,.38);
+      border: 0.5px solid rgba(194,120,112,0.22);
+      border-radius: 24px;
+      padding: 24px;
+    }
+    .orbit-feature strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      color: var(--bark);
+      font-size: 28px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .orbit-screens {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 24px;
+      align-items: start;
+    }
+    .orbit-page .caption {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.55;
+      margin-top: 10px;
+    }
+    .orbit-app-embed {
+      margin-top: 28px;
+      border: 0.5px solid rgba(194,120,112,0.24);
+      border-radius: 32px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 24px 70px rgba(58,40,32,0.13);
+    }
+    .orbit-app-embed iframe {
+      width: 100%;
+      height: 900px;
+      border: 0;
+      display: block;
+      background: var(--white);
+    }
+    @media(max-width:850px) {
+      .orbit-page { padding: 48px 20px 72px; }
+      .orbit-hero,
+      .orbit-screens,
+      .orbit-feature-grid { grid-template-columns: 1fr; }
+      .orbit-stats-grid { grid-template-columns: 1fr 1fr; }
+      .orbit-stat:nth-child(2) { border-right: 0; }
+      .orbit-page h1 { font-size: 62px; }
+      .orbit-app-embed iframe { height: 720px; }
+    }
+    @media(max-width:480px) {
+      .orbit-stats-grid { grid-template-columns: 1fr; }
+      .orbit-stat { border-right: 0; border-bottom: 0.5px solid rgba(194,120,112,0.22); }
+      .orbit-stat:last-child { border-bottom: 0; }
+      .orbit-page h1 { font-size: 48px; }
+      .orbit-app-embed iframe { height: 640px; }
+    }
+
   </style>
 </head>
 <body>
@@ -844,7 +1054,7 @@
 <header class="nav" id="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><span class="lustre-wm">lustre<sup>health</sup></span></a>
-    <nav class="nav-links"><a class="nav-link" href="how-it-works.html">How it Works</a><a class="nav-link" href="protocols.html">Protocols</a><a class="nav-link" href="results.html">Results</a><a class="nav-link" href="faq.html">FAQ</a><a class="nav-link nav-link--active" href="lustre-and-time-optimization.html">Time Optimization</a><a class="nav-link" href="lustre-and-fitness.html">Fitness</a></nav>
+    <nav class="nav-links"><a class="nav-link" href="how-it-works.html">How it Works</a><a class="nav-link" href="protocols.html">Protocols</a><a class="nav-link" href="results.html">Results</a><a class="nav-link" href="faq.html">FAQ</a><a class="nav-link" href="lustre-and-time-optimization.html">Time Optimization</a><a class="nav-link nav-link--active" href="lustre-and-fitness.html">Fitness</a></nav>
     <div class="nav-actions">
       <a href="login.html" class="nav-signin">Patient sign in</a>
       <a href="protocols.html" class="nav-cta">Get started <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 6h6m0 0L6 3m3 3L6 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
@@ -853,24 +1063,129 @@
   </div>
 </header>
 
-<div style="background:linear-gradient(160deg,var(--cream) 0%,var(--cream-2) 100%);min-height:100vh;display:flex;flex-direction:column">
-  <div class="coming-soon-wrap" style="flex:1">
-    <div class="coming-soon-card">
-      <div class="coming-soon-badge">
-        <span class="coming-soon-badge-dot"></span>
-        Coming soon
+
+<main class="orbit-page">
+  <div class="orbit-wrap">
+<section class="orbit-hero">
+      <div>
+        <div class="pill">A circular 24-hour planner</div>
+        <h1>Your day, <em>in orbit.</em></h1>
+        <p class="lede">Orbit is a visual planner built around the shape of a day: midnight at the top, noon at the bottom, and every commitment arranged around a circular 24-hour dial.</p>
+        <div class="actions">
+          <a class="button" href="https://mccab22k.github.io/kieramakesthings/orbit.html">Launch Orbit</a>
+          <a class="button secondary" href="#screenshots">View screenshots</a>
+        </div>
       </div>
-      <h1 class="coming-soon-h">Lustre &amp; Time<br><em>Optimization.</em></h1>
-      <p class="coming-soon-p">Your protocol, your schedule. We're building a guide to getting the most out of your Lustre routine — when to dose, how to layer your protocols across your day, and how to align your biology with the hours that matter most.</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a href="protocols.html" class="btn-primary" style="font-size:13px;padding:12px 22px">View protocols <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 6h6m0 0L6 3m3 3L6 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
-        <a href="index.html" class="coming-soon-back">← Back to home</a>
+
+      <div class="mock-frame" aria-label="Lustre palette Orbit mockup">
+        <svg viewBox="0 0 620 760" role="img">
+          <rect width="620" height="760" fill="#fbf7f2"/>
+          <rect x="28" y="24" width="564" height="712" rx="42" fill="#f6efe8" stroke="#e2c9bd"/>
+          <text x="310" y="68" fill="#3c261f" font-family="Playfair Display" font-size="38" font-style="italic" font-weight="700" text-anchor="middle">Orbit</text>
+          <text x="310" y="92" fill="#a95f5f" font-family="DM Sans" font-size="11" letter-spacing="5" text-anchor="middle">JUN 4 · TODAY</text>
+          <rect x="166" y="116" width="82" height="38" rx="19" fill="#3c261f"/><text x="207" y="140" fill="#fff" font-family="Playfair Display" font-size="19" font-style="italic" text-anchor="middle">Day</text>
+          <rect x="260" y="116" width="82" height="38" rx="19" fill="#fff7f3" stroke="#e2c9bd"/><text x="301" y="140" fill="#8a746b" font-family="Playfair Display" font-size="19" font-style="italic" text-anchor="middle">Week</text>
+          <rect x="354" y="116" width="94" height="38" rx="19" fill="#fff7f3" stroke="#e2c9bd"/><text x="401" y="140" fill="#8a746b" font-family="Playfair Display" font-size="19" font-style="italic" text-anchor="middle">Month</text>
+          <circle cx="310" cy="388" r="210" fill="none" stroke="#e2c9bd" stroke-width="1"/>
+          <circle cx="310" cy="388" r="156" fill="none" stroke="#e2c9bd" stroke-width="1"/>
+          <circle cx="310" cy="388" r="92" fill="none" stroke="#e8d7cf" stroke-width="1"/>
+          <g stroke="#cdb3a8" stroke-width="2"><line x1="310" y1="171" x2="310" y2="197"/><line x1="310" y1="579" x2="310" y2="605"/><line x1="94" y1="388" x2="120" y2="388"/><line x1="500" y1="388" x2="526" y2="388"/></g>
+          <text x="310" y="283" fill="#3c261f" font-family="DM Sans" font-size="17" font-weight="700" text-anchor="middle">12A</text>
+          <text x="420" y="338" fill="#8a746b" font-family="DM Sans" font-size="14" text-anchor="middle">3A</text>
+          <text x="430" y="494" fill="#8a746b" font-family="DM Sans" font-size="14" text-anchor="middle">9A</text>
+          <text x="310" y="540" fill="#8a746b" font-family="DM Sans" font-size="14" text-anchor="middle">12P</text>
+          <text x="190" y="494" fill="#8a746b" font-family="DM Sans" font-size="14" text-anchor="middle">3P</text>
+          <text x="178" y="390" fill="#8a746b" font-family="DM Sans" font-size="14" text-anchor="middle">6P</text>
+          <text x="310" y="382" fill="#3c261f" font-family="Playfair Display" font-size="64" text-anchor="middle">1:26</text>
+          <text x="310" y="414" fill="#a95f5f" font-family="DM Sans" font-size="11" letter-spacing="5" text-anchor="middle">PM · THU</text>
+          <text x="310" y="452" fill="#8a746b" font-family="DM Sans" font-size="10" letter-spacing="4" text-anchor="middle">UP NEXT</text>
+          <text x="310" y="482" fill="#3c261f" font-family="Playfair Display" font-size="23" font-style="italic" font-weight="700" text-anchor="middle">Therapy</text>
+          <g transform="rotate(76 310 388)"><rect x="394" y="376" width="86" height="28" rx="2" fill="#c98982"/><text x="437" y="395" fill="#3c261f" font-family="Playfair Display" font-size="17" font-style="italic" text-anchor="middle">Deep work</text></g>
+          <g transform="rotate(190 310 388)"><rect x="456" y="376" width="48" height="30" rx="2" fill="#e9a850"/><text x="480" y="395" fill="#3c261f" font-family="Playfair Display" font-size="16" font-style="italic" text-anchor="middle">Run</text></g>
+          <g transform="rotate(154 310 388)"><rect x="420" y="376" width="68" height="32" rx="2" fill="#a95f5f"/><text x="454" y="396" fill="#fff7f3" font-family="Playfair Display" font-size="16" font-style="italic" text-anchor="middle">Therapy</text></g>
+          <rect x="44" y="638" width="532" height="70" rx="20" fill="#fff7f3" stroke="#e2c9bd"/><text x="70" y="674" fill="#3c261f" font-family="Playfair Display" font-size="24" font-style="italic" font-weight="700">Inbox</text><text x="142" y="674" fill="#8a746b" font-family="DM Sans" font-size="10" letter-spacing="3">GRIP TO DRAG</text>
+        </svg>
+        <p class="caption">Concept mockup only: Orbit translated into the Lustre-style cream, blush, rose, and espresso palette. The app UI is not changed.</p>
       </div>
-      <div class="coming-soon-divider"></div>
-      <p style="font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);opacity:0.6">Notify me when this launches → <a href="mailto:hello@lustrehealth.com" style="color:var(--rose-deep);text-decoration:none">hello@lustrehealth.com</a></p>
-    </div>
+    </section>
+
+    <section class="orbit-section">
+      <h2>Most planners treat time as a list.</h2>
+      <p>Orbit treats time as a shape. The circular day view makes overlap, drift, empty space, and routine more visible than a stacked agenda.</p>
+      <div class="orbit-stats-grid">
+        <div class="orbit-stat"><div class="label">View</div><p>24-hour circular dial</p></div>
+        <div class="orbit-stat"><div class="label">Planning</div><p>Two concentric task rings</p></div>
+        <div class="orbit-stat"><div class="label">Input</div><p>Tap, drag, resize</p></div>
+        <div class="orbit-stat"><div class="label">Use case</div><p>Routines, tasks, templates</p></div>
+      </div>
+    </section>
+
+    <section class="orbit-section">
+      <h2>Features</h2>
+      <div class="orbit-feature-grid">
+        <div class="orbit-feature"><strong>Circular planning</strong><p>See the full day at once, from midnight through the next midnight.</p></div>
+        <div class="orbit-feature"><strong>Two layers</strong><p>Separate longer blocks from shorter events without visual collision.</p></div>
+        <div class="orbit-feature"><strong>Drag scheduling</strong><p>Move blocks around the dial and resize time visually.</p></div>
+        <div class="orbit-feature"><strong>Templates</strong><p>Build reusable daily structures for common routines.</p></div>
+        <div class="orbit-feature"><strong>Repeating tasks</strong><p>Plan routines that recur or regenerate after completion.</p></div>
+        <div class="orbit-feature"><strong>Month view</strong><p>Zoom out from a single day into broader planning.</p></div>
+      </div>
+    </section>
+
+    <section class="orbit-section" id="screenshots">
+      <h2>Screenshots</h2>
+      <div class="orbit-screens">
+        <div class="mock-frame">
+          <svg viewBox="0 0 620 760" role="img" aria-label="Current dark Orbit UI screenshot recreation">
+            <rect width="620" height="760" fill="#08090b"/>
+            <text x="310" y="34" fill="#f4efe9" font-family="Playfair Display" font-size="28" font-style="italic" font-weight="700" text-anchor="middle">Orbit</text>
+            <text x="310" y="52" fill="#7e7e7e" font-family="DM Sans" font-size="10" letter-spacing="4" text-anchor="middle">JUN 4 · TODAY</text>
+            <rect x="164" y="70" width="56" height="34" rx="17" fill="#f4efe9"/><text x="192" y="92" fill="#111" font-family="Playfair Display" font-size="16" font-style="italic" text-anchor="middle">Day</text>
+            <rect x="228" y="70" width="70" height="34" rx="17" fill="#111214" stroke="#242424"/><text x="263" y="92" fill="#777" font-family="Playfair Display" font-size="16" font-style="italic" text-anchor="middle">Week</text>
+            <rect x="306" y="70" width="78" height="34" rx="17" fill="#111214" stroke="#242424"/><text x="345" y="92" fill="#777" font-family="Playfair Display" font-size="16" font-style="italic" text-anchor="middle">Month</text>
+            <text x="310" y="134" fill="#f4efe9" font-family="Playfair Display" font-size="22" font-style="italic" font-weight="700" text-anchor="middle">Today</text>
+            <text x="310" y="150" fill="#777" font-family="DM Sans" font-size="10" letter-spacing="5" text-anchor="middle">JUN 4 · 2026</text>
+            <circle cx="310" cy="397" r="205" fill="none" stroke="#232323"/><circle cx="310" cy="397" r="142" fill="none" stroke="#232323"/><circle cx="310" cy="397" r="86" fill="none" stroke="#202020"/>
+            <g stroke="#3a3a3a" stroke-width="2"><line x1="310" y1="182" x2="310" y2="205"/><line x1="310" y1="589" x2="310" y2="614"/><line x1="96" y1="397" x2="120" y2="397"/><line x1="500" y1="397" x2="524" y2="397"/></g>
+            <text x="310" y="296" fill="#e8e5df" font-family="DM Sans" font-size="15" font-weight="700" text-anchor="middle">12A</text><text x="420" y="350" fill="#858585" font-family="DM Sans" font-size="13" text-anchor="middle">3A</text><text x="430" y="502" fill="#858585" font-family="DM Sans" font-size="13" text-anchor="middle">9A</text><text x="310" y="542" fill="#858585" font-family="DM Sans" font-size="13" text-anchor="middle">12P</text><text x="190" y="502" fill="#858585" font-family="DM Sans" font-size="13" text-anchor="middle">3P</text><text x="176" y="400" fill="#858585" font-family="DM Sans" font-size="13" text-anchor="middle">6P</text>
+            <text x="310" y="394" fill="#f4efe9" font-family="Playfair Display" font-size="58" text-anchor="middle">1:26</text><text x="310" y="425" fill="#888" font-family="DM Sans" font-size="10" letter-spacing="5" text-anchor="middle">PM · THU</text><text x="310" y="463" fill="#777" font-family="DM Sans" font-size="10" letter-spacing="4" text-anchor="middle">UP NEXT</text><text x="310" y="491" fill="#f4efe9" font-family="Playfair Display" font-size="22" font-style="italic" font-weight="700" text-anchor="middle">Therapy</text>
+            <g transform="rotate(76 310 397)"><rect x="394" y="385" width="86" height="28" rx="2" fill="#b78ac8"/><text x="437" y="404" fill="#08090b" font-family="Playfair Display" font-size="15" font-style="italic" text-anchor="middle">Deep work</text></g><g transform="rotate(190 310 397)"><rect x="456" y="385" width="48" height="30" rx="2" fill="#f2a33f"/><text x="480" y="404" fill="#08090b" font-family="Playfair Display" font-size="15" font-style="italic" text-anchor="middle">Run</text></g><g transform="rotate(154 310 397)"><rect x="420" y="385" width="68" height="32" rx="2" fill="#ef6358"/><text x="454" y="405" fill="#08090b" font-family="Playfair Display" font-size="15" font-style="italic" text-anchor="middle">Therapy</text></g>
+            <rect x="0" y="644" width="620" height="116" fill="#111113" stroke="#222"/><text x="22" y="676" fill="#f4efe9" font-family="Playfair Display" font-size="20" font-style="italic" font-weight="700">Inbox</text><text x="86" y="675" fill="#888" font-family="DM Sans" font-size="10" letter-spacing="3">GRIP TO DRAG</text><rect x="16" y="696" width="288" height="28" rx="8" fill="#111" stroke="#f4efe9"/><text x="160" y="715" fill="#f4efe9" font-family="DM Sans" font-size="10" letter-spacing="3" font-weight="700" text-anchor="middle">TASKS</text><rect x="314" y="696" width="290" height="28" rx="8" fill="#111" stroke="#2a2a2a"/><text x="459" y="715" fill="#888" font-family="DM Sans" font-size="10" letter-spacing="3" text-anchor="middle">REPEATING</text>
+          </svg>
+          <p class="caption">Current Orbit dark UI, included as an as-is reference for the live product direction.</p>
+        </div>
+
+        <div class="mock-frame">
+          <svg viewBox="0 0 620 760" role="img" aria-label="Lustre palette Orbit concept mockup duplicate">
+            <rect width="620" height="760" fill="#fbf7f2"/><rect x="28" y="24" width="564" height="712" rx="42" fill="#f6efe8" stroke="#e2c9bd"/><text x="310" y="68" fill="#3c261f" font-family="Playfair Display" font-size="38" font-style="italic" font-weight="700" text-anchor="middle">Orbit</text><text x="310" y="92" fill="#a95f5f" font-family="DM Sans" font-size="11" letter-spacing="5" text-anchor="middle">LUSTRE PALETTE MOCKUP</text><circle cx="310" cy="388" r="210" fill="none" stroke="#e2c9bd"/><circle cx="310" cy="388" r="156" fill="none" stroke="#e2c9bd"/><circle cx="310" cy="388" r="92" fill="none" stroke="#e8d7cf"/><text x="310" y="382" fill="#3c261f" font-family="Playfair Display" font-size="64" text-anchor="middle">1:26</text><text x="310" y="414" fill="#a95f5f" font-family="DM Sans" font-size="11" letter-spacing="5" text-anchor="middle">PM · THU</text><text x="310" y="482" fill="#3c261f" font-family="Playfair Display" font-size="23" font-style="italic" font-weight="700" text-anchor="middle">Therapy</text><g transform="rotate(76 310 388)"><rect x="394" y="376" width="86" height="28" rx="2" fill="#c98982"/></g><g transform="rotate(190 310 388)"><rect x="456" y="376" width="48" height="30" rx="2" fill="#e9a850"/></g><g transform="rotate(154 310 388)"><rect x="420" y="376" width="68" height="32" rx="2" fill="#a95f5f"/></g><rect x="44" y="638" width="532" height="70" rx="20" fill="#fff7f3" stroke="#e2c9bd"/><text x="70" y="674" fill="#3c261f" font-family="Playfair Display" font-size="24" font-style="italic" font-weight="700">Inbox</text>
+          </svg>
+          <p class="caption">Color-system exploration only. This does not alter the deployed Orbit app.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="orbit-section">
+      <h2>Status</h2>
+      <p>Orbit is live as a web app. App Store details and final distribution links can be added when ready.</p>
+      <div class="actions"><a class="button" href="https://mccab22k.github.io/kieramakesthings/orbit.html">Open the web app</a></div>
+    </section>
+
+    <section class="orbit-section">
+      <h2>Live web app</h2>
+      <p>Use the embedded version below, or open Orbit directly in a new tab.</p>
+      <div class="actions">
+        <a class="button" href="https://mccab22k.github.io/kieramakesthings/orbit.html" target="_blank" rel="noopener">Launch Orbit</a>
+      </div>
+      <div class="orbit-app-embed">
+        <iframe
+          src="https://mccab22k.github.io/kieramakesthings/orbit.html"
+          title="Orbit Planner"
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
   </div>
-</div>
+</main>
 <footer class="footer" style="border-top:0.5px solid rgba(194,120,112,0.15)">
   <div class="footer-inner">
     <div class="footer-bottom">

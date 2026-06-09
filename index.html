@@ -498,10 +498,14 @@
     }
     .tcard:hover { transform: scale(1.025); box-shadow: 0 16px 48px rgba(58,40,32,0.18); }
     .tcard-shade {
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(58,40,32,0.22) 0%, transparent 30%, transparent 52%, rgba(58,40,32,0.58) 100%);
-      pointer-events: none;
-    }
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(25, 18, 15, 0.70),
+        rgba(25, 18, 15, 0.20)
+    );
+}
     .tcard-chip {
       position: absolute; top: 14px; left: 14px;
       display: inline-flex; align-items: center; gap: 7px;
@@ -920,58 +924,16 @@
         <div class="benefits-label"><span class="benefits-dot"></span>Now optimizing your</div>
         <div class="benefits-viewport">
           <div class="benefits-track">
-            <span class="benefits-pill" style="
-      background-image:url('/images/results-skin.png');
-      background-size:cover;
-      background-position:center;
-      color:white;
-      ">skin luminosity</span>
-            <span class="benefits-pill" style="
-       background-image: url('/images/pexels-karolina-grabowska-4042806.jpg');
-       background-size: cover;
-       background-position: center;
-       color:#fff;">collagen</span>
-            <span class="benefits-pill" style="
-       background-image: url('/images/results-bodycomp.jpg');
-       background-size: cover;
-       background-position: center;
-       color:white;">body composition</span>
-            <span class="benefits-pill" style="
-       background-image: url('/images/results-sleep.jpg');
-       background-size: cover;
-       background-position: center;
-       color:white;">deep sleep</span>
-            <span class="benefits-pill" style="
-      background-image:url('/images/pill-elasticity.jpg');
-      background-size:cover;
-      background-position:center;
-      color:white;">skin firmness</span>
-            <span class="benefits-pill" style="
-      background-image:url('/images/pill-tone.jpg');
-      background-size:cover;
-      background-position:center;
-      color:white;">lean toning</span>
-            <span class="benefits-pill" style="
-      background-image:url('/images/results-energy.jpg');
-      background-size:cover;
-      background-position:center;
-      color:white;
-      ">energy</span>
-            <span class="benefits-pill" style="
-      background-image:url('/images/pill-fat.jpg');
-      background-size:cover;
-      background-position:center;
-      color:white;">fat loss</span>
-            <span class="benefits-pill" style="
-       background-image: url('/images/results-energy.jpg');
-       background-size: cover;
-       background-position: center;
-       color:white;">anti-aging</span>
-            <span class="benefits-pill" style="
-       background-image: url('/images/results-recovery.jpg');
-       background-size: cover;
-       background-position: center;
-       color:white;">recovery</span>
+            <span class="benefits-pill" style="background:#f5e8e4">skin luminosity</span>
+            <span class="benefits-pill" style="background:#ede8f0">collagen</span>
+            <span class="benefits-pill" style="background:#f0e8dc">body composition</span>
+            <span class="benefits-pill" style="background:#e4ede8">deep sleep</span>
+            <span class="benefits-pill" style="background:#f0e4e8">skin firmness</span>
+            <span class="benefits-pill" style="background:#e0ede8">lean toning</span>
+            <span class="benefits-pill" style="background:#f4ecdc">energy</span>
+            <span class="benefits-pill" style="background:#e8ecdc">fat loss</span>
+            <span class="benefits-pill" style="background:#e8e4f0">anti-aging</span>
+            <span class="benefits-pill" style="background:#dce8e4">recovery</span>
             <span class="benefits-pill" aria-hidden="true" style="background:#f5e8e4">skin luminosity</span>
             <span class="benefits-pill" aria-hidden="true" style="background:#ede8f0">collagen</span>
             <span class="benefits-pill" aria-hidden="true" style="background:#f0e8dc">body composition</span>
@@ -1147,14 +1109,55 @@
     <!-- carousel viewport wraps the track -->
     <div class="carousel-viewport" id="carousel-viewport">
       <div class="science-track" id="science-track">
-        <div class="tcard" style="background:linear-gradient(160deg,#f0d8d4 0%,#d4a8a0 55%,#b07870 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◈</span><span>Skin</span></div><div class="tcard-blurb">Luminosity, firmness, texture, collagen</div></div>
-        <div class="tcard" style="background:linear-gradient(160deg,#e8d8ec 0%,#b898c0 55%,#886890 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">✦</span><span>Anti-aging</span></div><div class="tcard-blurb">Collagen synthesis, dermal remodeling</div></div>
-        <div class="tcard" style="background:linear-gradient(160deg,#dce8e0 0%,#90b8a0 55%,#607870 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◎</span><span>Body composition</span></div><div class="tcard-blurb">Lean toning, visceral fat, GLP-1 companion</div></div>
-        <div class="tcard" style="background:linear-gradient(160deg,#d8e4ec 0%,#90a8c0 55%,#607088 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">☾</span><span>Sleep</span></div><div class="tcard-blurb">Deep sleep architecture, overnight repair</div></div>
-        <div class="tcard" style="background:linear-gradient(160deg,#dce8dc 0%,#8ab898 55%,#507860 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">↻</span><span>Recovery</span></div><div class="tcard-blurb">Gut-skin axis, inflammation, tissue healing</div></div>
-        <div class="tcard" style="background:linear-gradient(160deg,#f0e8d4 0%,#c8a870 55%,#907840 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◐</span><span>Energy</span></div><div class="tcard-blurb">Cellular energy, mitochondrial output</div></div>
-        <div class="tcard" style="background:linear-gradient(160deg,#ece0e8 0%,#c890b0 55%,#906080 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">◇</span><span>Hormone axis</span></div><div class="tcard-blurb">GH signaling, thyroid, estrogen balance</div></div>
-        <div class="tcard" style="background:linear-gradient(160deg,#d8ece8 0%,#80b8b0 55%,#487870 100%)"><div class="tcard-shade"></div><div class="tcard-chip"><span class="tcard-icon">∞</span><span>Longevity</span></div><div class="tcard-blurb">Cellular aging, biomarker optimization</div></div>
+        <div class="science-track" id="science-track">
+  <div class="tcard" style="background-image:url('/images/results-skin.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;">
+    <div class="tcard-shade"></div>
+    <div class="tcard-chip"><span class="tcard-icon">◈</span><span>Skin</span></div>
+    <div class="tcard-blurb">Luminosity, firmness, texture, collagen</div>
+  </div>
+
+  <div class="tcard" style="background-image:url('/images/pill-elasticity.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;">
+    <div class="tcard-shade"></div>
+    <div class="tcard-chip"><span class="tcard-icon">✦</span><span>Anti-aging</span></div>
+    <div class="tcard-blurb">Collagen synthesis, dermal remodeling</div>
+  </div>
+
+  <div class="tcard" style="background-image:url('/images/results-bodycomp.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;">
+    <div class="tcard-shade"></div>
+    <div class="tcard-chip"><span class="tcard-icon">◎</span><span>Body composition</span></div>
+    <div class="tcard-blurb">Lean toning, visceral fat, GLP-1 companion</div>
+  </div>
+
+  <div class="tcard" style="background-image:url('/images/results-sleep.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;">
+    <div class="tcard-shade"></div>
+    <div class="tcard-chip"><span class="tcard-icon">☾</span><span>Sleep</span></div>
+    <div class="tcard-blurb">Deep sleep architecture, overnight repair</div>
+  </div>
+
+  <div class="tcard" style="background-image:url('/images/results-recovery.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;">
+    <div class="tcard-shade"></div>
+    <div class="tcard-chip"><span class="tcard-icon">↻</span><span>Recovery</span></div>
+    <div class="tcard-blurb">Gut-skin axis, inflammation, tissue healing</div>
+  </div>
+
+  <div class="tcard" style="background-image:url('/images/results-energy.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;">
+    <div class="tcard-shade"></div>
+    <div class="tcard-chip"><span class="tcard-icon">◐</span><span>Energy</span></div>
+    <div class="tcard-blurb">Cellular energy, mitochondrial output</div>
+  </div>
+
+  <div class="tcard" style="background-image:url('/images/results-balance.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;">
+    <div class="tcard-shade"></div>
+    <div class="tcard-chip"><span class="tcard-icon">◇</span><span>Hormone axis</span></div>
+    <div class="tcard-blurb">GH signaling, thyroid, estrogen balance</div>
+  </div>
+
+  <div class="tcard" style="background-image:url('/images/results-longevity.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;">
+    <div class="tcard-shade"></div>
+    <div class="tcard-chip"><span class="tcard-icon">∞</span><span>Longevity</span></div>
+    <div class="tcard-blurb">Cellular aging, biomarker optimization</div>
+  </div>
+</div>  
       </div>
     </div>
 

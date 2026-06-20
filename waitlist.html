@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lustre Health — Join the Waitlist</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:Inter,sans-serif;
+
+    background:
+    radial-gradient(circle at top,#f8efec 0%,#f4ebe8 40%,#f6f3f1 100%);
+
+    color:#433b39;
+
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:40px;
+
+}
+
+.container{
+
+    width:100%;
+    max-width:560px;
+
+}
+
+.logo{
+
+    text-align:center;
+    margin-bottom:20px;
+
+}
+
+.logo img{
+
+    width:70px;
+    margin-bottom:18px;
+
+}
+
+h1{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:52px;
+    font-weight:600;
+
+    text-align:center;
+
+    color:#443835;
+
+}
+
+.subtitle{
+
+    margin-top:16px;
+
+    text-align:center;
+
+    line-height:1.7;
+
+    color:#7b6c69;
+
+    font-size:17px;
+
+    margin-bottom:40px;
+
+}
+
+.card{
+
+    background:rgba(255,255,255,.68);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.55);
+
+    border-radius:28px;
+
+    padding:38px;
+
+    box-shadow:
+    0 30px 60px rgba(185,145,138,.12);
+
+}
+
+.field{
+
+    margin-bottom:22px;
+
+}
+
+label{
+
+    display:block;
+
+    font-size:14px;
+
+    margin-bottom:8px;
+
+    color:#6f625f;
+
+}
+
+input,
+select{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:white;
+
+    padding:16px 18px;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.25s;
+
+    border:1px solid #ece3df;
+
+}
+
+input:focus,
+select:focus{
+
+    border-color:#d7b2ab;
+
+    box-shadow:0 0 0 4px rgba(218,180,171,.15);
+
+}
+
+button{
+
+    width:100%;
+
+    border:none;
+
+    cursor:pointer;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    margin-top:10px;
+
+    background:linear-gradient(
+    135deg,
+    #d9b0aa,
+    #c9938d);
+
+    color:white;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 30px rgba(201,147,141,.28);
+
+}
+
+.note{
+
+    margin-top:24px;
+
+    text-align:center;
+
+    font-size:14px;
+
+    color:#8b7d7a;
+
+    line-height:1.6;
+
+}
+
+.success{
+
+    display:none;
+
+    margin-top:25px;
+
+    text-align:center;
+
+    color:#4d7153;
+
+    font-weight:500;
+
+}
+
+@media(max-width:650px){
+
+.card{
+
+padding:28px;
+
+}
+
+h1{
+
+font-size:42px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+
+<!-- Replace with Lustre logo -->
+
+<img src="assets/logo.png" alt="Lustre Health">
+
+</div>
+
+<h1>Join the Waitlist</h1>
+
+<p class="subtitle">
+Be the first to know when your personalized protocol becomes available.
+</p>
+
+<div class="card">
+
+<form id="waitlistForm">
+
+<div class="field">
+<label>Full Name</label>
+<input
+type="text"
+name="name"
+required
+placeholder="Jane Doe">
+</div>
+
+<div class="field">
+<label>Email Address</label>
+<input
+type="email"
+name="email"
+required
+placeholder="jane@email.com">
+</div>
+
+<div class="field">
+<label>Protocol of Interest</label>
+
+<select name="protocol" required>
+
+<option value="">Select a protocol</option>
+
+<option>GLP-1 Weight Management</option>
+
+<option>Women's Health</option>
+
+<option>Hair Health</option>
+
+<option>Skin Health</option>
+
+<option>Longevity</option>
+
+<option>Fitness Optimization</option>
+
+<option>General Wellness</option>
+
+<option>Not Sure Yet</option>
+
+</select>
+
+</div>
+
+<button type="submit">
+Join the Waitlist
+</button>
+
+</form>
+
+<div class="success" id="successMessage">
+
+✨ You're on the list. We'll email you as soon as your selected protocol launches.
+
+</div>
+
+</div>
+
+<p class="note">
+By joining the waitlist, you agree to receive launch updates from Lustre Health.
+You can unsubscribe at any time.
+</p>
+
+</div>
+
+<script>
+
+const form=document.getElementById("waitlistForm");
+
+form.addEventListener("submit",async function(e){
+
+e.preventDefault();
+
+const data={
+name:form.name.value,
+email:form.email.value,
+protocol:form.protocol.value
+};
+
+console.log(data);
+
+/*
+
+Replace this with your backend call.
+
+Example:
+
+await fetch("/api/waitlist",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(data)
+});
+
+*/
+
+form.style.display="none";
+
+document.getElementById("successMessage").style.display="block";
+
+});
+
+</script>
+
+</body>
+</html>
